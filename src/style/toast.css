@@ -1,0 +1,7 @@
+.toast-container {
+    background-color: #1D2635;
+}
+
+.toast-container .Toastify__toast-body>div:nth-child(2) {
+    color: white !important
+}

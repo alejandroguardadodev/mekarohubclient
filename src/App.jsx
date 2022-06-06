@@ -1,44 +1,36 @@
-import { useState } from 'react'
-import logo from './logo.svg'
-import './App.css'
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
+import { ToastContainer } from 'react-toastify';
+
+
+import { Provider } from "react-redux"
+import { ThemeProvider } from '@mui/material/styles';
+
+import store from "./store"
+
+import { muiTheme } from "./muiTheme"
+
+import AuthLayout from "./layouts/AuthLayout"
+
+import SignUp from "./pages/SignUp"
+
+import 'react-toastify/dist/ReactToastify.css';
+import './style/toast.css'
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>Hello Vite + React!</p>
-        <p>
-          <button type="button" onClick={() => setCount((count) => count + 1)}>
-            count is: {count}
-          </button>
-        </p>
-        <p>
-          Edit <code>App.jsx</code> and save to test HMR updates.
-        </p>
-        <p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-          {' | '}
-          <a
-            className="App-link"
-            href="https://vitejs.dev/guide/features.html"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Vite Docs
-          </a>
-        </p>
-      </header>
-    </div>
+    <Router>
+      <Provider store={store}>
+        <ThemeProvider theme={muiTheme}>
+          <Routes>
+            <Route path="/" element={<AuthLayout />}>
+              <Route path="signup" element={<SignUp />} />
+            </Route>
+          </Routes>
+
+          <ToastContainer />
+        </ThemeProvider>
+      </Provider>
+    </Router>
   )
 }
 
