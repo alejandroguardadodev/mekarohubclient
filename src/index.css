@@ -3,8 +3,10 @@
   --color-black: #07070D;
   --color-dark-3: #798194;
   --color-white-1: #F2F2F2;
+  --color-white-2: #C9C9C9;
   --color-main: #308C8C;
   --color-primary: #5EBFB5;
+  --color-error: #D91EBA;
 }
 
 body {
@@ -37,6 +39,10 @@ code {
   color: var(--color-black)
 }
 
+.color-error {
+  color: var(--color-error)
+}
+
 .color-main {
   color: var(--color-main)
 }
@@ -47,6 +53,10 @@ code {
 
 .color-white-1 {
   color: var(--color-white-1)
+}
+
+.color-white-2 {
+  color: var(--color-white-2)
 }
 
 .color-dark-3 {

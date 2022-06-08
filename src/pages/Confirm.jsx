@@ -1,6 +1,5 @@
 import { useEffect, useState, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom'
-import { styled } from '@mui/material/styles';
 
 import axiosClient from '../config/axiosClient';
 
@@ -8,16 +7,7 @@ import { Grid, Typography, Button, Box } from "@mui/material"
 
 import { showSuccess, showError } from "../helper/toastHelper";
 
-const MainGrid = styled(Grid)(({ theme }) => ({
-  boxShadow: "0px 10px 25px -10px rgba(0,0,0,0.65)",
-  overflow: "hidden",
-  width: '70%',
-  background: "white",
-  borderRadius: 10,
-  [theme.breakpoints.down("sm")]: {
-    borderRadius: 0
-  }
-}))
+import { Container } from '../designs';
 
 const Confirm = () => {
   const params = useParams()
@@ -48,13 +38,13 @@ const Confirm = () => {
   }, [])
 
   return (
-    <MainGrid container p={5} >
-      <Grid item xs={12} sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: "center" }}>
-        <Typography variant="h3" className='sub-header' color="#308C8C">- MEKARO HUB -</Typography>
-        <Typography variant="h1" gutterBottom className='header-black'> 
+    <Container className="w-70 rounded bg-dark-1" container p={5} >
+      <Grid item xs={12} className="flex-col-center">
+        <Typography variant="h3" className='color-primary'>HELLO THERE</Typography>
+        <Typography variant="h1" className='title color-white-2' gutterBottom > 
           {
             (status === 1)? "CONFIRMED USER!":
-            (status === 2)? <span style={{color: "#D91EBA"}}>INVALID TOKEN!!!</span>:
+            (status === 2)? <span className='color-error'>INVALID TOKEN!!!</span>:
             "Waiting..."
           }
         </Typography>
@@ -65,7 +55,7 @@ const Confirm = () => {
           <Button variant="outlined" size="large" onClick={() => {navigate("/")}}>Go To Login</Button>
         </Box>
       </Grid>
-    </MainGrid>
+    </Container>
   )
 }
 
