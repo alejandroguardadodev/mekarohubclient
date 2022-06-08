@@ -1,67 +1,60 @@
-import { styled } from '@mui/material/styles';
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
-import { Grid, Typography } from "@mui/material"
+import { Grid, Typography, Box } from "@mui/material"
 import { Link } from 'react-router-dom'
 
 import SignUpForm from "../components/forms/SignUpForm"
 
 import joinsignup from '../imgs/joinsignup.svg'
 
-const MainGrid = styled(Grid)(({ theme }) => ({
-  boxShadow: "0px 10px 25px -10px rgba(0,0,0,0.65)",
-  overflow: "hidden",
-  '&>.img-header-signup': {
-    background: 'linear-gradient(73deg, rgba(48,140,140,1) 0%, rgba(94,191,181,1) 100%)', 
-    display: "flex", 
-    justifyContent: "center", 
-    alignItems : "center", 
-    flexDirection: "column"
-  },
-  '&>.form-signup': {
-    background: "#1D2635", 
-    boxShadow: "-10px 0px 35px -15px rgba(0,0,0,0.65)",
-    zIndex: 10,
-    paddingTop: '3rem'
-  },
-  '& .signin-link': {
-    textDecoration: "none", 
-    color: "white", 
-    textTransform: "uppercase", 
-    fontWeight: 800
-  },
-  [theme.breakpoints.up("md")]: {
-    borderRadius: 10
-  },
-  [theme.breakpoints.down("md")]: {
-    borderRadius: 10
-  },
-  [theme.breakpoints.down("sm")]: {
-    borderRadius: 0
-  }
-}))
+import { Container } from "../designs"
 
 const SignUp = () => {
+  const theme = useTheme();
+
+  const isMedium = useMediaQuery(theme.breakpoints.down('md'));
+
+  console.log(isMedium)
   return (
-    <MainGrid container>
-      <Grid item className='img-header-signup' xs={12} lg={5} py={{ xs: 5, lg: 0 }} >
-          <Typography variant="h1" className='header'> Mekaro Hub </Typography>
-          <Typography variant="h5" className='sub-header'>Are you ready for the next level?</Typography>
+    <Container className="rounded" container>
+      {!isMedium && (
+        <Grid item className='bg-linear-tp-1 flex-col-center' xs={12} lg={5} py={{ xs: 5, lg: 0 }} >
+          <Typography variant="h1" className='title color-white-1'> Mekaro Hub </Typography>
+          <Typography variant="h5" className='sub-title color-white-1'>Are you ready for the next level?</Typography>
 
           <img src={joinsignup} width="380" />
 
-          <Typography variant="body1" component="div" gutterBottom color="white" letterSpacing={1}>
-            Do you already have an account? <Link to="/" className='signin-link'>Sign In</Link>
+          <Typography variant="body1" component="p">
+            <Link to="/" className='mh-link-3 color-white-1'>Do you already have an account? {" "}
+              <span style={{ textTransform: "uppercase", fontWeight: "700", letterSpacing: "1px" }} >Sign In</span>
+            </Link>
+          </Typography>
+
+          <Typography variant="body1" component="p">
+            <Link to="/recover-password" className='mh-link-3 color-white-1'>Have you forgotten your password? </Link>
           </Typography>
         </Grid>
+      )}
 
-        <Grid item className='form-signup' xs={12} lg={7} p={{ xs: 3, sm: 6, md: 8 }} >
-          <Typography variant="h1" component="div" color="#798194" letterSpacing={1}>
-            Sign Up
+      <Grid item className='shadow-type-1 bg-dark-1' xs={12} lg={7} p={{ xs: 3, sm: 6, md: 8 }} >
+        <Typography variant="h1" className="color-dark-3" letterSpacing={1}> Sign Up </Typography>
+        <SignUpForm />
+
+        {isMedium && (<Box mt={5}>
+          <Typography variant="body1" component="p">
+            <Link to="/" className='mh-link-3 color-main'>Do you already have an account? {" "}
+              <span style={{ textTransform: "uppercase", fontWeight: "700", letterSpacing: "1px" }} >Sign In</span>
+            </Link>
           </Typography>
-          <SignUpForm />
-        </Grid>
 
-    </MainGrid>
+          <Typography variant="body1" component="p">
+            <Link to="/recover-password" className='mh-link-3 color-main'>Have you forgotten your password? </Link>
+          </Typography>
+        </Box>)}
+      </Grid>
+
+    </Container>
   )
 }
 

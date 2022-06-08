@@ -55,8 +55,8 @@ const SignUpForm = () => {
             setError(key, { type: 'custom', message });
           }
         }
-
-        updateToastError(_toast, err.errMsg)
+        console.log(err)
+        updateToastError(_toast, data.errMsg)
       }
     }
   }

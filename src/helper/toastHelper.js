@@ -23,3 +23,25 @@ export const updateToastSuccess = (id, msg) => {
         className: 'toast-container'
     });
 }
+
+export const showSuccess = msg => toast.success(msg, {
+    position: "top-right",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    className: 'toast-container'
+});;
+
+export const showError = msg => toast.error(msg, {
+    position: "top-right",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    className: 'toast-container'
+});;

@@ -8,7 +8,6 @@ export const muiTheme =  createTheme({
     secondary: {
       light: '#5EBFB5',
       main: '#5EBFB5',
-      // dark: will be calculated from palette.secondary.main,
       contrastText: '#5EBFB5',
     },
     tonalOffset: 0.2,
@@ -19,21 +18,32 @@ export const muiTheme =  createTheme({
             fontWeight: 900,
             fontFamily: "'Poppins', sans-serif",
             textTransform: "uppercase",
-            '&.header': {
-              color: "white",
-              fontSize: 35, 
+            '&.title': {
+              fontSize: 30, 
               letterSpacing: 1 
             }
+        },
+        h3: {
+          fontSize: 26,
+          fontWeight: 900,
+          fontFamily: "'Poppins', sans-serif",
+          '&.sub-title': {
+            fontSize: 28, 
+            letterSpacing: 1 
+          }
         },
         h5: {
             fontSize: 16,
             fontWeight: 300,
             fontFamily: "'Prompt', sans-serif",
             '&.sub-header': {
-              color: "white",
               fontStyle: "italic", 
               marginTop: "0px"
             }
+        },
+        body1: {
+          fontSize: 17,
+          fontFamily: "'Prompt', sans-serif",
         }
     },
     components: {

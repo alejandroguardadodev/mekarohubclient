@@ -10,7 +10,8 @@ const CustomeContainer = styled(Container)(({ theme }) => ({
     height: '100vh', 
     display: 'flex', 
     justifyContent: 'center', 
-    alignItems: 'center' 
+    alignItems: 'center',
+    flexDirection: "column"
   },
   [theme.breakpoints.down("md")]: {
     padding: "50px 20px"

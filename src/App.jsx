@@ -12,11 +12,14 @@ import { muiTheme } from "./muiTheme"
 import AuthLayout from "./layouts/AuthLayout"
 
 import SignUp from "./pages/SignUp"
+import Confirm from "./pages/Confirm"
+import RecoverPassword from "./pages/RecoverPassword";
 
 import 'react-toastify/dist/ReactToastify.css';
 import './style/toast.css'
 
 function App() {
+  console.log('APP LOAD')
   return (
     <Router>
       <Provider store={store}>
@@ -24,6 +27,8 @@ function App() {
           <Routes>
             <Route path="/" element={<AuthLayout />}>
               <Route path="signup" element={<SignUp />} />
+              <Route path="confirm/:token" element={<Confirm />} />
+              <Route path="recover-password" element={<RecoverPassword />} />
             </Route>
           </Routes>
 
