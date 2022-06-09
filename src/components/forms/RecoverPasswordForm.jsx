@@ -1,5 +1,6 @@
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useEffect, useState } from "react";
 
 import { Box, Button } from '@mui/material';
 
@@ -13,26 +14,37 @@ import { createToast, updateToastError, updateToastSuccess } from "../../helper/
 
 const RecoverPasswordForm = () => {
 
-    const { register, handleSubmit, formState:{ errors } } = useForm({
-        resolver: yupResolver(RecoverPasswordSchemas)
-      });
-    
-      const onSubmit = async (formData) => {
-        const _toast = createToast("Please wait...")
-    
-        try {
-          const { data } = await axiosClient.post('/users/forgot-password', formData)
-    
-          updateToastSuccess(_toast, data.msg)
-          
-        } catch (err) {
-          if (err?.response) {
-            const { data } = err.response;
-    
-            updateToastError(_toast, data.errMsg)
-          }
-        }
+   const [successForm, setSuccessForm] = useState(false)
+
+  const { register, handleSubmit, formState:{ errors }, reset, clearErrors  } = useForm({
+    resolver: yupResolver(RecoverPasswordSchemas)
+  });
+
+  const onSubmit = async (formData) => {
+    const _toast = createToast("Please wait...")
+
+    try {
+      const { data } = await axiosClient.post('/users/forgot-password', formData)
+
+      updateToastSuccess(_toast, data.msg)
+      clearErrors()
+      setSuccessForm(true)
+    } catch (err) {
+      if (err?.response) {
+        const { data } = err.response;
+
+        updateToastError(_toast, data.errMsg)
       }
+    }
+  }
+
+  useEffect(() => {
+    if (successForm) {
+      reset({entity: ""})
+      setSuccessForm(false)
+    }
+    
+  }, [successForm])
 
   return (
     <form style={{width: "100%"}} onSubmit={handleSubmit(onSubmit)}>

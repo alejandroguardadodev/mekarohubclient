@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
-import { styled } from '@mui/material/styles';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useEffect, useState } from "react";
 import axiosClient from "../../config/axiosClient";
 
 import { Box, Button } from '@mui/material';
@@ -12,27 +12,13 @@ import Input from "../controls/Input";
 
 import { ERROR_TYPE_FIELDS } from "../types";
 
-const TextFieldGroup = styled(Box)(({ theme }) => ({
-  width: '100%',
-  display: 'block',
-  [theme.breakpoints.up("lg")]: {
-    display: "flex", 
-    justifyContent: "space-between", 
-    gap: '20px'
-  },
-  [theme.breakpoints.down("lg")]: {
-    '&>.MuiFormControl-root': {
-      marginTop: '24px'
-    },
-    '&>.remove-space-input': {
-      marginTop: '0px'
-    }
-  }
-}))
+import { TextFieldGroup } from "../../designs";
 
 const SignUpForm = () => {
 
-  const { register, handleSubmit, formState:{ errors }, setError } = useForm({
+  const [successForm, setSuccessForm] = useState(false)
+
+  const { register, handleSubmit, formState:{ errors }, setError, reset, clearErrors } = useForm({
     resolver: yupResolver(signUpSchemas)
   });
 
@@ -43,7 +29,8 @@ const SignUpForm = () => {
       const { data } = await axiosClient.post('/users/signup', formData)
 
       updateToastSuccess(_toast, data.msg)
-      
+      clearErrors()
+      setSuccessForm(true)
     } catch (err) {
       if (err?.response) {
         const { data } = err.response;
@@ -60,6 +47,21 @@ const SignUpForm = () => {
       }
     }
   }
+
+  useEffect(() => {
+    if (successForm) {
+      reset({
+        firstName: "",
+        lastName: "",
+        username: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
+      })
+      setSuccessForm(false)
+    }
+    
+  }, [successForm])
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>

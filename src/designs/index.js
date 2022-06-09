@@ -40,3 +40,21 @@ export const TwoItemBetween = styled(Box)(({ theme }) => ({
         gap: "10px",
     }
 }))
+
+export const TextFieldGroup = styled(Box)(({ theme }) => ({
+    width: '100%',
+    display: 'block',
+    [theme.breakpoints.up("lg")]: {
+      display: "flex", 
+      justifyContent: "space-between", 
+      gap: '20px'
+    },
+    [theme.breakpoints.down("lg")]: {
+      '&>.MuiFormControl-root': {
+        marginTop: '24px'
+      },
+      '&>.remove-space-input': {
+        marginTop: '0px'
+      }
+    }
+  }))
