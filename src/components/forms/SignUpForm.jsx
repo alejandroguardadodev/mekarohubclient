@@ -5,12 +5,12 @@ import axiosClient from "../../config/axiosClient";
 
 import { Box, Button } from '@mui/material';
 
-import { signUpSchemas } from "../../schemas";
+import { SignUpSchemas } from "../../schemas";
 import { createToast, updateToastError, updateToastSuccess } from "../../helper/toastHelper";
 
 import Input from "../controls/Input";
 
-import { ERROR_TYPE_FIELDS } from "../types";
+import { ERROR_TYPE_FIELDS } from "../../types";
 
 import { TextFieldGroup } from "../../designs";
 
@@ -19,8 +19,10 @@ const SignUpForm = () => {
   const [successForm, setSuccessForm] = useState(false)
 
   const { register, handleSubmit, formState:{ errors }, setError, reset, clearErrors } = useForm({
-    resolver: yupResolver(signUpSchemas)
+    resolver: yupResolver(SignUpSchemas)
   });
+
+  console.log(SignUpSchemas.fields.email.type)
 
   const onSubmit = async (formData) => {
     const _toast = createToast("Please wait...")

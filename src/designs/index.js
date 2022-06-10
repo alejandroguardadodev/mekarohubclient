@@ -11,8 +11,14 @@ export const Container = styled(Grid)(({ theme }) => ({
     '&.w-70': {
         width: '70%',
     },
+    '&.w-50': {
+        width: '50%',
+    },
     [theme.breakpoints.down("md")]: {
         '&.w-70': {
+            width: '100%',
+        },
+        '&.w-50': {
             width: '100%',
         },
     },

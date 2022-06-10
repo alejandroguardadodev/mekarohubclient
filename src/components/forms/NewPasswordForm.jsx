@@ -10,7 +10,7 @@ import { createToast, updateToastError, updateToastSuccess } from "../../helper/
 import { Box, Button } from "@mui/material";
 import Input from "../controls/Input";
 
-import { ERROR_TYPE_FIELDS } from "../types";
+import { ERROR_TYPE_FIELDS } from "../../types";
 
 const NewPasswordForm = ({token}) => {
   const [successForm, setSuccessForm] = useState(false)
