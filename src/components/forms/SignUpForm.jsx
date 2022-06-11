@@ -1,72 +1,43 @@
-import { useForm } from "react-hook-form";
-import { yupResolver } from '@hookform/resolvers/yup';
-import { useEffect, useState } from "react";
-import axiosClient from "../../config/axiosClient";
-
-import { Box, Button } from '@mui/material';
-
 import { SignUpSchemas } from "../../schemas";
-import { createToast, updateToastError, updateToastSuccess } from "../../helper/toastHelper";
 
-import Input from "../controls/Input";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
-import { ERROR_TYPE_FIELDS } from "../../types";
+import axiosClient from "../../config/axiosClient";
+import useClientForm from "../../hooks/useClientForm"
 
 import { TextFieldGroup } from "../../designs";
+import { Box, Button } from '@mui/material';
+import Input from "../controls/Input";
 
 const SignUpForm = () => {
+  const navigate = useNavigate()
 
-  const [successForm, setSuccessForm] = useState(false)
+  const { formData, errors, register, setErrorsByErr, onSubmit, showSuccessMessage } = useClientForm(SignUpSchemas, { 
+    firstName: "",
+    lastName: "",
+    username: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  })
 
-  const { register, handleSubmit, formState:{ errors }, setError, reset, clearErrors } = useForm({
-    resolver: yupResolver(SignUpSchemas)
-  });
-
-  console.log(SignUpSchemas.fields.email.type)
-
-  const onSubmit = async (formData) => {
-    const _toast = createToast("Please wait...")
-
+  const signUp = async (_data) => {
     try {
-      const { data } = await axiosClient.post('/users/signup', formData)
-
-      updateToastSuccess(_toast, data.msg)
-      clearErrors()
-      setSuccessForm(true)
+      const { data } = await axiosClient.post('/users/signup', _data)
+      showSuccessMessage(data.msg)
+      navigate('/')
     } catch (err) {
-      if (err?.response) {
-        const { data } = err.response;
-
-        if (data?.errType === ERROR_TYPE_FIELDS) {
-          for (const key in data.fields) {
-            const message = data.fields[key]
-
-            setError(key, { type: 'custom', message });
-          }
-        }
-        console.log(err)
-        updateToastError(_toast, data.errMsg)
-      }
+      setErrorsByErr(err)
     }
   }
 
   useEffect(() => {
-    if (successForm) {
-      reset({
-        firstName: "",
-        lastName: "",
-        username: "",
-        email: "",
-        password: "",
-        confirmPassword: "",
-      })
-      setSuccessForm(false)
-    }
-    
-  }, [successForm])
+    if (formData) signUp(formData)
+  }, [formData])
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={onSubmit}>
       <Box mt={3} fullWidth>
         <TextFieldGroup>
           <Input id="firstName" className="remove-space-input" label="First Name" register={register} errors={errors} />

@@ -1,59 +1,39 @@
-import { useForm } from "react-hook-form";
-import { yupResolver } from '@hookform/resolvers/yup';
-import { useEffect, useState } from "react";
-
-import { Box, Button } from '@mui/material';
-
-import Input from "../controls/Input";
-
 import { RecoverPasswordSchemas } from "../../schemas";
 
-import axiosClient from "../../config/axiosClient";
+import { useEffect } from "react";
 
-import { createToast, updateToastError, updateToastSuccess } from "../../helper/toastHelper";
+import axiosClient from "../../config/axiosClient";
+import useClientForm from "../../hooks/useClientForm";
+
+import { Box, Button, Typography } from '@mui/material';
+import Input from "../controls/Input";
 
 const RecoverPasswordForm = () => {
 
-   const [successForm, setSuccessForm] = useState(false)
+  const { formData, errors, register, setErrorsByErr, onSubmit, showSuccessMessage } = useClientForm(RecoverPasswordSchemas, { entity: "" })
 
-  const { register, handleSubmit, formState:{ errors }, reset, clearErrors  } = useForm({
-    resolver: yupResolver(RecoverPasswordSchemas)
-  });
-
-  const onSubmit = async (formData) => {
-    const _toast = createToast("Please wait...")
-
+  const recoverPassword = async (_data) => {
     try {
-      const { data } = await axiosClient.post('/users/forgot-password', formData)
-
-      updateToastSuccess(_toast, data.msg)
-      clearErrors()
-      setSuccessForm(true)
+      const { data } = await axiosClient.post('/users/forgot-password', _data)
+      showSuccessMessage(data.msg)
     } catch (err) {
-      if (err?.response) {
-        const { data } = err.response;
-
-        updateToastError(_toast, data.errMsg)
-      }
+      setErrorsByErr(err)
     }
   }
 
   useEffect(() => {
-    if (successForm) {
-      reset({entity: ""})
-      setSuccessForm(false)
-    }
-    
-  }, [successForm])
+    if (formData) recoverPassword(formData)
+  }, [formData])
 
   return (
-    <form style={{width: "100%"}} onSubmit={handleSubmit(onSubmit)}>
+    <form className="w-100" onSubmit={onSubmit}>
         <Box mt={3} fullWidth>
             <Box mt={3} fullWidth>
                 <Input id="entity" fullWidth type="text" label="Email or Username" register={register} errors={errors} />
+                <Typography variant="caption" style={{ lineHeight: "-1px", fontStyle: "italic", color: "rgba(255, 255, 255, .8)" }}> Please use the <strong className='color-primary'>email / username</strong> related to your account* </Typography>
             </Box>
             <Box mt={3} style={{ display: "flex", justifyContent: "center" }}>
-                <Button type="submit" variant="outlined" size="large" sx={{ padding: "10px 40px", fontWeight: 700 }}>Send Link</Button>
+                <Button type="submit" variant="outlined" size="large" fullWidth sx={{ padding: "10px 40px", fontWeight: 700 }}>Send Link</Button>
             </Box>
         </Box>
     </form>

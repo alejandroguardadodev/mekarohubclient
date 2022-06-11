@@ -7,7 +7,6 @@ import axiosClient from "../../config/axiosClient";
 import useClientForm from "../../hooks/useClientForm";
 
 import { Box, Button } from '@mui/material';
-import { TextFieldGroup } from "../../designs"
 import Input from '../controls/Input'
 
 const LoginForm = () => {
@@ -15,11 +14,15 @@ const LoginForm = () => {
     const navigate = useNavigate()
     const { formData, errors, register, setErrorsByErr, onSubmit, showSuccessMessage } = useClientForm(LoginSchemas, { entity: "", password: "" })
 
-    const login = async (formData) => {
+    const login = async (_data) => {
         try {
-            const { data } = await axiosClient.post('/users/login', formData)
-        
-            showSuccessMessage(data.msg)
+            const { data } = await axiosClient.post('/users/login', _data)
+            const { token, msg, user } = data
+
+            window.localStorage.setItem("token", JSON.stringify(token));
+
+            showSuccessMessage(msg)
+            navigate('/dashboard')
         } catch (err) {
             setErrorsByErr(err)
         }

@@ -83,11 +83,13 @@ code {
 .mh-link-2 {
   text-decoration: none;
   text-transform: uppercase; 
+  font-family: 'Prompt', sans-serif;
   font-weight: 800;
 }
 
 .mh-link-3 {
   text-decoration: none;
+  font-family: 'Prompt', sans-serif;
   font-weight: 400;
 }
 
@@ -119,4 +121,18 @@ code {
   justify-content: center;
   align-items : center;
   flex-direction: row !important;
+}
+
+.flex-row-between {
+  display: flex;
+  justify-content: space-around;
+  align-items : center;
+  flex-direction: row !important;
+}
+
+.flex-col-between {
+  display: flex;
+  justify-content: center;
+  align-items : space-between;
+  flex-direction: column !important;
 }

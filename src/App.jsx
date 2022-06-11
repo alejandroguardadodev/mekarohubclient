@@ -10,12 +10,15 @@ import store from "./store"
 import { muiTheme } from "./muiTheme"
 
 import AuthLayout from "./layouts/AuthLayout"
+import DashLayout from "./layouts/DashLayout";
 
 import SignUp from "./pages/SignUp"
 import Confirm from "./pages/Confirm"
 import RecoverPassword from "./pages/RecoverPassword";
 import NewPassword from "./pages/NewPassword";
 import Login from "./pages/Login";
+
+import Dashboard from "./pages/Dashboard";
 
 import 'react-toastify/dist/ReactToastify.css';
 import './style/toast.css'
@@ -28,11 +31,15 @@ function App() {
         <ThemeProvider theme={muiTheme}>
           <Routes>
             <Route path="/" element={<AuthLayout />}>
-            <Route index element={<Login />} />
+              <Route index element={<Login />} />
               <Route path="signup" element={<SignUp />} />
               <Route path="confirm/:token" element={<Confirm />} />
               <Route path="recover-password" element={<RecoverPassword />} />
               <Route path="new-password/:token" element={<NewPassword />} />
+            </Route>
+
+            <Route path="/dashboard" element={<DashLayout />}>
+              <Route index element={<Dashboard />} />
             </Route>
           </Routes>
 
