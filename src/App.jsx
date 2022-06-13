@@ -24,7 +24,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import './style/toast.css'
 
 function App() {
-  console.log('APP LOAD')
   return (
     <Router>
       <Provider store={store}>

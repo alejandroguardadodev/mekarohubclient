@@ -1,6 +1,7 @@
 import { toast } from 'react-toastify';
 
 export const createToast = msg => toast.loading(msg);
+
 export const updateToastError = (id, msg) => {
     toast.update(id, {
         render: msg, 
@@ -12,6 +13,7 @@ export const updateToastError = (id, msg) => {
         className: 'toast-container'
     });
 }
+
 export const updateToastSuccess = (id, msg) => {
     toast.update(id, {
         render: msg, 
@@ -33,7 +35,7 @@ export const showSuccess = msg => toast.success(msg, {
     draggable: true,
     progress: undefined,
     className: 'toast-container'
-});;
+});
 
 export const showError = msg => toast.error(msg, {
     position: "top-right",
@@ -44,4 +46,22 @@ export const showError = msg => toast.error(msg, {
     draggable: true,
     progress: undefined,
     className: 'toast-container'
-});;
+});
+
+export const showMsg = message => {
+    const {msg, type} = message;
+
+    const config = {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        className: 'toast-container'
+    };
+
+    if (type === 'success') toast.success(msg, config); 
+    else toast.error(msg, config); 
+}    

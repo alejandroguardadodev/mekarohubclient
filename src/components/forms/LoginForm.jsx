@@ -19,7 +19,7 @@ const LoginForm = () => {
             const { data } = await axiosClient.post('/users/login', _data)
             const { token, msg, user } = data
 
-            window.localStorage.setItem("token", JSON.stringify(token));
+            window.localStorage.setItem("token", token);
 
             showSuccessMessage(msg)
             navigate('/dashboard')
