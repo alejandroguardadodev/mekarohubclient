@@ -22,3 +22,8 @@ export const SignUpSchemas = yup.object({
     entity: yup.string().required('This field is required'),
     password: yup.string().required('Password is required').min(4, "Password too short"),
   }).required();
+
+  export const NewContentSchemas = yup.object({
+    title: yup.string().required('This field is required'),
+    description: yup.string()
+  }).required();

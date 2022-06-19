@@ -20,8 +20,13 @@ import Login from "./pages/Login";
 
 import Dashboard from "./pages/Dashboard";
 
+import Concept from "./pages/Concept";
+
 import 'react-toastify/dist/ReactToastify.css';
 import './style/toast.css'
+
+import 'react-grid-layout/css/styles.css'
+import 'react-resizable/css/styles.css'
 
 function App() {
   return (
@@ -39,6 +44,10 @@ function App() {
 
             <Route path="/dashboard" element={<DashLayout />}>
               <Route index element={<Dashboard />} />
+            </Route>
+
+            <Route path="/concept" element={<DashLayout />}>
+              <Route index element={<Concept />} />
             </Route>
           </Routes>
 

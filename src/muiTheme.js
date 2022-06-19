@@ -20,7 +20,7 @@ export const muiTheme =  createTheme({
             textTransform: "uppercase",
             '&.title': {
               fontSize: 30, 
-              letterSpacing: 1 
+              letterSpacing: 1
             }
         },
         h3: {
@@ -32,13 +32,20 @@ export const muiTheme =  createTheme({
             letterSpacing: 1 
           }
         },
+        h4: {
+          fontSize: 18,
+          fontWeight: 400,
+          fontFamily: "'Prompt', sans-serif",
+        },
         h5: {
             fontSize: 16,
             fontWeight: 300,
             fontFamily: "'Prompt', sans-serif",
-            '&.sub-header': {
-              fontStyle: "italic", 
-              marginTop: "0px"
+            '&.menu-header': {
+              fontSize: 20,
+              fontWeight: 700,
+              textTransform: "uppercase",
+              letterSpacing: 1
             }
         },
         body1: {

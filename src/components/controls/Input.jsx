@@ -33,7 +33,7 @@ const CostumInputStyle = styled(TextField)({
 });
 
 
-const Input = ({id, label, register, errors, type, className}) => {
+const Input = ({id, label, register, errors, type, className, multiline=false, maxRows=null, rows=null}) => {
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => setShowPassword(!showPassword);
   const handleMouseDownPassword = () => setShowPassword(!showPassword);
@@ -50,6 +50,9 @@ const Input = ({id, label, register, errors, type, className}) => {
         helperText={errors[id] ? errors[id].message : null}
         type={ !isPassword? type : ( showPassword ? 'text' : 'password' ) }
         className={className}
+        multiline={multiline}
+        maxRows={rows}
+        rows={rows}
         InputProps={{ 
           endAdornment: isPassword ? (
             <InputAdornment position="end">
