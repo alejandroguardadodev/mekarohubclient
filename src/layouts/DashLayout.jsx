@@ -1,4 +1,4 @@
-import { Outlet, useNavigate } from "react-router-dom"
+import { Outlet, useNavigate, useLocation  } from "react-router-dom"
 import { useEffect, useState, useCallback } from "react";
 import { styled } from '@mui/material/styles';
 import { useRef } from "react";
@@ -10,6 +10,8 @@ import Navbar from "../components/UI/Navbar";
 import Sidebar from "../components/UI/Sidebar";
 
 import { Box, CssBaseline } from "@mui/material"
+
+import { MENUITEMS } from "../types/consts";
 
 import '../style/dashboard.css'
 
@@ -36,10 +38,12 @@ const InnerContainer = styled(Box)(({ theme }) => ({
 
 const DashLayout = () => {
   const navigate = useNavigate()
+  const location = useLocation();
   const innerContainerRef = useRef(null);
 
-  const [open, setOpen] = useState(false);
-  const [innerContainerWidth, setInnerContainerWidth] = useState(0);
+  const [open, setOpen] = useState(false); // Open Main Menu
+  const [innerContainerWidth, setInnerContainerWidth] = useState(0); // Get Current Width
+  const [currentItem, setCurrentItem] = useState({})
 
   const { isAuth, loadAuth } = useAuth()
   const { showLoadScreen, resetLoadScreen } = useLoadScreen()
@@ -53,9 +57,18 @@ const DashLayout = () => {
 
   useEffect(() => {
     loadAuth(false)
+
+    const path = location.pathname;
+    const currentPage = path.split('/')[1];
+
+    if (currentPage) {
+      var item = MENUITEMS.find(i => i.id == currentPage.toLowerCase())
+
+      if (item) setCurrentItem(item)
+    }
   }, [])
 
-  useCallback(() => {
+  useEffect(() => {
     if (!isAuth) {
       resetLoadScreen()
       navigate('/')
@@ -66,10 +79,10 @@ const DashLayout = () => {
     <MainContainer>
       <CssBaseline />
       <Navbar open={open} handleDrawerOpen={handleDrawerOpen} handleDrawerClose={handleDrawerClose} />
-      <Sidebar open={open} handleDrawerClose={handleDrawerClose}/>
+      <Sidebar open={open} handleDrawerClose={handleDrawerClose} selectItem={setCurrentItem}/>
 
       <InnerContainer ref={innerContainerRef}>
-        <Outlet context={[innerContainerWidth]} />
+        <Outlet context={[innerContainerWidth, currentItem]} />
       </InnerContainer>
 
       {showLoadScreen()}

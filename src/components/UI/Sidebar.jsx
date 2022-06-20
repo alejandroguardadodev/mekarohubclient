@@ -8,7 +8,7 @@ import PublicIcon from '@mui/icons-material/Public';
 import { List, Divider, IconButton, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
 import MuiDrawer from '@mui/material/Drawer';
 
-import {DRAWERWIDTH} from '../../types/consts.js';
+import { DRAWERWIDTH, MENUITEMS } from '../../types/consts.js';
 
 const openedMixin  = (theme) => ({
   width: DRAWERWIDTH,
@@ -59,7 +59,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
     }),
 );
 
-const Sidebar = ({open, handleDrawerClose}) => {
+const Sidebar = ({open, handleDrawerClose, selectItem}) => {
   const theme = useTheme();
   const navigate = useNavigate()
 
@@ -72,26 +72,16 @@ const Sidebar = ({open, handleDrawerClose}) => {
         </DrawerHeader>
         <Divider style={{borderColor: "rgba(255, 255, 255, .3)", opacity: open ? 1 : 0}} />
         <List>
-            <ListItem key={1} disablePadding sx={{ display: 'block' }} onClick={() => { navigate('/concept') }}>
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
-                }}
-              >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
-                  }}
-                >
-                  <PublicIcon className='color-white-3' />
-                </ListItemIcon>
-                <ListItemText primary="Concept" className='item-list-menu color-white-3' sx={{ opacity: open ? 1 : 0 }} />
-              </ListItemButton>
-            </ListItem>
+            { MENUITEMS.map(item => (
+              <ListItem key={item.id} disablePadding sx={{ display: 'block' }} onClick={() => { navigate(item.link); selectItem(item) }} >
+                <ListItemButton sx={{ minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5, }} >
+                  <ListItemIcon sx={{ minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center', }}>
+                    <item.icon className='color-white-3' />
+                  </ListItemIcon>
+                  <ListItemText primary={item.title} className='item-list-menu color-white-3' sx={{ opacity: open ? 1 : 0 }} />
+                </ListItemButton>
+              </ListItem>
+            ))}
         </List>
     </Drawer>
   );

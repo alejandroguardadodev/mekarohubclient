@@ -36,6 +36,11 @@ export const muiTheme =  createTheme({
           fontSize: 18,
           fontWeight: 400,
           fontFamily: "'Prompt', sans-serif",
+          '&.header-card': {
+            textTransform: 'uppercase',
+            fontWeight: 600,
+            letterSpacing: 1
+          }
         },
         h5: {
             fontSize: 16,
@@ -51,6 +56,9 @@ export const muiTheme =  createTheme({
         body1: {
           fontSize: 17,
           fontFamily: "'Prompt', sans-serif",
+          letterSpacing: 0,
+          lineHeight: 1.2,
+          fontWeight: 300
         }
     },
     components: {
