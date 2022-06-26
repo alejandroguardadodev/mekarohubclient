@@ -29,6 +29,20 @@ code {
     monospace;
 }
 
+/* Margin */
+.m-0 {
+  margin: 0px !important;
+}
+
+/* Padding */
+.pt-0 {
+  padding-top: 0px !important;
+}
+
+.pt-1 {
+  padding-top: 5px !important;
+}
+
 /**Text */
 .text-center {
   text-align: center;
@@ -53,6 +67,10 @@ code {
 /**Text */
 .uppercase {
   text-transform: uppercase;
+}
+
+.capitalize {
+  text-transform: capitalize !important;
 }
 
 .fnt-bold {
@@ -143,7 +161,7 @@ code {
 }
 
 .bg-main {
-  background: var(--color-main);
+  background: var(--color-main) !important;
 }
 
 .bg-darker-1 {
@@ -175,6 +193,13 @@ code {
 .flex-row-center {
   display: flex;
   justify-content: center;
+  align-items : center;
+  flex-direction: row !important;
+}
+
+.flex-row-end {
+  display: flex;
+  justify-content: flex-end;
   align-items : center;
   flex-direction: row !important;
 }
@@ -224,4 +249,13 @@ code {
 @keyframes showUp {
   0%   {bottom: 0}
   100% {bottom: 50%;}
+}
+
+/* TEST */
+.react-grid-item > .react-resizable-handle::after {
+  color: white !important;
+}
+
+html .MuiModal-root>.MuiBackdrop-root {
+  background: rgba(255,255,255,.15) !important;
 }

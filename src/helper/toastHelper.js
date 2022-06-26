@@ -4,6 +4,7 @@ export const createToast = msg => toast.loading(msg);
 
 export const updateToastError = (id, msg) => {
     toast.update(id, {
+        position: "bottom-right",
         render: msg, 
         type: "error", 
         isLoading: false,
@@ -16,6 +17,7 @@ export const updateToastError = (id, msg) => {
 
 export const updateToastSuccess = (id, msg) => {
     toast.update(id, {
+        position: "bottom-right",
         render: msg, 
         type: "success", 
         isLoading: false,
@@ -27,7 +29,7 @@ export const updateToastSuccess = (id, msg) => {
 }
 
 export const showSuccess = msg => toast.success(msg, {
-    position: "top-right",
+    position: "bottom-right",
     autoClose: 5000,
     hideProgressBar: false,
     closeOnClick: true,
@@ -38,7 +40,7 @@ export const showSuccess = msg => toast.success(msg, {
 });
 
 export const showError = msg => toast.error(msg, {
-    position: "top-right",
+    position: "bottom-right",
     autoClose: 5000,
     hideProgressBar: false,
     closeOnClick: true,
@@ -52,7 +54,7 @@ export const showMsg = message => {
     const {msg, type} = message;
 
     const config = {
-        position: "top-right",
+        position: "bottom-right",
         autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,

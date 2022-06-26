@@ -15,7 +15,7 @@ const CustomeMenu = styled(Menu)(({ theme }) => ({
         fontFamily: "'Poppins', sans-serif",
         fontSize: 16,
         fontWeight: 400,
-        textTransform: 'uppercase',
+        textTransform: 'Capitalize',
         color: "#C9C9C9",
         paddingLeft: "30px",
         paddingRight: "30px"
@@ -37,7 +37,7 @@ const SubMenu = ({icon, id, items}) => {
             onClose={closeMenu}
         >
             {items && items.map(item => (
-                <MenuItem onClick={closeMenu}>{item.title}</MenuItem>
+                <MenuItem key={item.id} onClick={closeMenu}>{item.title}</MenuItem>
             ))}
         </CustomeMenu>
 </div>

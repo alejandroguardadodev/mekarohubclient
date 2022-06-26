@@ -9,34 +9,29 @@ const MainBox = styled(Box)(({ theme }) => ({
     width: '80%',
     maxWidth: 600,
     transform: 'translate(-50%, 50%)',
-    background: '#07070D',
+    background: '#141414',
     padding: "20px",
     animation: 'showUp .25s forwards',
     borderRadius: '10px',
-    border: 'solid 2px #5EBFB5',
+    boxShadow: '0px 10px 20px -8px rgba(0,0,0,0.6)',
 }))
 
 const ModalNewConcept = ({open, handleClose}) => {
     
   return (
-    <Modal
-    aria-labelledby="transition-modal-title"
-    aria-describedby="transition-modal-description"
-    open={open}
-    onClose={handleClose}
-    closeAfterTransition
-    BackdropComponent={Backdrop}
-    BackdropProps={{
-      timeout: 500,
-    }}
-  >
-    
+    <Modal aria-labelledby="transition-modal-title" aria-describedby="transition-modal-description"
+      open={open}
+      onClose={handleClose}
+      closeAfterTransition
+      BackdropComponent={Backdrop}
+      BackdropProps={{ timeout: 500, }}
+    >
       <MainBox open={open}>
-        <Typography id="transition-modal-title" variant="h3" className="color-main capitalize text-center">
+        <Typography id="transition-modal-title" variant="h3" className="color-main capitalize" sx={{ fontWeight: 500, fontSize: 20}}>
           Create new concept
         </Typography>
         <Box id="transition-modal-description" sx={{ mt: 2, width: '100%' }}>
-          <NewContentForm />
+          <NewContentForm closeModal={handleClose} />
         </Box>
       </MainBox>
   </Modal>

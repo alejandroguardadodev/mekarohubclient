@@ -1,7 +1,8 @@
 import { Outlet, useNavigate, useLocation  } from "react-router-dom"
 import { useEffect, useState, useCallback } from "react";
 import { styled } from '@mui/material/styles';
-import { useRef } from "react";
+import { useResizeDetector } from 'react-resize-detector';
+
 
 import useAuth from '../hooks/useAuth';
 import useLoadScreen from '../hooks/useLoadScreen';
@@ -39,21 +40,17 @@ const InnerContainer = styled(Box)(({ theme }) => ({
 const DashLayout = () => {
   const navigate = useNavigate()
   const location = useLocation();
-  const innerContainerRef = useRef(null);
+  const { width: innerContainerWidth, height, ref: innerContainerRef } = useResizeDetector();
 
   const [open, setOpen] = useState(false); // Open Main Menu
-  const [innerContainerWidth, setInnerContainerWidth] = useState(0); // Get Current Width
   const [currentItem, setCurrentItem] = useState({})
 
   const { isAuth, loadAuth } = useAuth()
   const { showLoadScreen, resetLoadScreen } = useLoadScreen()
 
+
   const handleDrawerOpen = () => setOpen(true);
   const handleDrawerClose = () => setOpen(false);
-
-  useEffect(() => {
-    setInnerContainerWidth(innerContainerRef.current.offsetWidth - 30);
-  })
 
   useEffect(() => {
     loadAuth(false)
@@ -74,7 +71,7 @@ const DashLayout = () => {
       navigate('/')
     }
   }, [isAuth])
-
+  
   return (
     <MainContainer>
       <CssBaseline />
@@ -82,7 +79,7 @@ const DashLayout = () => {
       <Sidebar open={open} handleDrawerClose={handleDrawerClose} selectItem={setCurrentItem}/>
 
       <InnerContainer ref={innerContainerRef}>
-        <Outlet context={[innerContainerWidth, currentItem]} />
+        <Outlet context={[currentItem, innerContainerWidth]} />
       </InnerContainer>
 
       {showLoadScreen()}
