@@ -12,6 +12,7 @@ export const muiTheme =  createTheme({
     },
     tonalOffset: 0.2,
   },
+
     typography: {
         h1: {
             fontSize: 28,
@@ -83,5 +84,14 @@ export const muiTheme =  createTheme({
           },
         },
       },
+      MuiTableCell: {
+        styleOverrides: {
+          root: {
+              fontSize: 15,
+              fontWeight: 300,
+              fontFamily: "'Poppins', sans-serif",
+          },
+        },
+      }
     },
 })

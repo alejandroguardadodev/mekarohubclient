@@ -1,6 +1,8 @@
 import update from 'immutability-helper' 
 import {useState, useCallback, useEffect} from 'react'
 
+import { TableContainer, Paper, Table, TableBody, TableHead, TableRow, TableCell  } from '@mui/material'
+
 import ConceptCard from './ConceptCard'
 
 const ConceptList = ({width, concepts}) => {
@@ -30,18 +32,27 @@ const ConceptList = ({width, concepts}) => {
             key={concept._id}
             index={index}
             id={concept._id}
-            text={concept.title}
+            concept={concept}
             moveItem={moveItem}
           />
         )
     }, [])
 
   return (
-    <>
-        <div style={{ width: `${width} px` }}>
+    <TableContainer component={Paper} style={{background: "transparent", borderRadius: "0"}}>
+      <Table aria-label="Concepts" style={{ width: `${width} px` }} size="small" >
+        <TableHead>
+          <TableRow sx={{'& td, & th': { borderColor: "rgba(255,255,255,.5)" },}}>
+            <TableCell component="th" scope="row" colSpan={2} className='color-white-2'>Concept</TableCell>
+            <TableCell className='color-white-2'>Owner</TableCell>
+            <TableCell className='color-white-2'>Created At</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
             {items.map((item, i) => renderConcept(item, i))}
-        </div>
-    </>
+        </TableBody>
+      </Table>
+    </TableContainer>
   )
 }
 

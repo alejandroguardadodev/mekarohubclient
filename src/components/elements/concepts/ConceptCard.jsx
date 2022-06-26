@@ -1,16 +1,31 @@
 import { useRef } from 'react'
 import { useDrag, useDrop } from 'react-dnd'
 
+import { TableRow, TableCell } from '@mui/material'
+
+import { formatDate } from '../../../helper'
+
+import HighlightAltIcon from '@mui/icons-material/HighlightAlt';
+
+import useAuth from '../../../hooks/useAuth';
+
 const style = {
     border: '1px dashed gray',
     padding: '0.5rem 1rem',
     marginBottom: '.5rem',
-    backgroundColor: 'white',
+    backgroundColor: 'transparent',
     cursor: 'move',
+    margin: "opx !important"
 }
 
-const ConceptCard = ({id, text, index, moveItem}) => {
+const ConceptCard = ({id, concept, index, moveItem}) => {
     const ref = useRef(null)
+
+    const { user } = useAuth()
+
+    const { title, owner: {_id, username}, createdAt } = concept;
+
+    const isOwner = user._id === _id;
 
     const [{ handlerId }, drop] = useDrop({
         accept: 'card',
@@ -75,9 +90,14 @@ const ConceptCard = ({id, text, index, moveItem}) => {
       drag(drop(ref))
 
     return (
-        <div ref={ref} style={{ ...style, opacity }} data-handler-id={handlerId}>
-            {text}
-        </div>
+      <TableRow ref={ref} style={{ opacity }} data-handler-id={handlerId} sx={{  '& td, & th': { borderColor: "rgba(255,255,255,.25)" }, '&:last-child td, &:last-child th': { border: 0 }, "&:hover": { background: "rgba(255,255,255,.1)" }, cursor: 'pointer' }}>
+        <TableCell align="left" className="color-white-2" sx={{ width: "2%" }}><HighlightAltIcon /></TableCell>
+        <TableCell component="th" scope="row" className="color-white-2" sx={{width: "50%"}}>
+          {title}
+        </TableCell>
+        <TableCell align="left" className={`${isOwner? 'color-primary-important' : 'color-white-2'}`}>@{username}</TableCell>
+        <TableCell align="left" className="color-white-2">{formatDate(createdAt)}</TableCell>
+      </TableRow>
     )
 }
 

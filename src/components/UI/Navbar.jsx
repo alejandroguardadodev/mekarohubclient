@@ -39,13 +39,13 @@ const Navbar = ({open, handleDrawerOpen}) => {
   };
 
   return (
-      <AppBar position="fixed" style={{background: "black"}} open={open}>
-        <Toolbar>
+      <AppBar position="fixed" style={{background: "#1C1C1C"}} open={open}>
+        <Toolbar className='flex-row-between' style={{ minHeight: "50px" }}>
           <IconButton size="large" edge="start" aria-label="menu" onClick={handleDrawerOpen} sx={{ ...(open && { display: 'none' }), }}>
             <MenuIcon className='color-white-3' />
           </IconButton>
-          <Typography variant="h5" component="div" sx={{ flexGrow: 1 }} className='menu-header color-white-3 pointer' onClick={() => navigate('/dashboard')}>Mekaro Hub</Typography>
-          <div>
+          <Typography variant="h5"  sx={{ ...(open && { display: 'none' }), flexGrow: 1, fontSize: "16px !important", lineHeight: "0rem !important" }} className='menu-header color-white-3 pointer' onClick={() => navigate('/dashboard')}>Mekaro Hub</Typography>
+          <div style={{ marginLeft: "auto" }}>
               <IconButton size="large" aria-label="account of current user" aria-controls="menu-appbar" aria-haspopup="true" onClick={handleMenu}color="inherit">
                 <AccountCircle className='color-white-3' />
               </IconButton>

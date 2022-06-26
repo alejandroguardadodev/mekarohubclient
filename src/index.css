@@ -111,7 +111,7 @@ code {
 }
 
 .color-white-2 {
-  color: var(--color-white-2)
+  color: var(--color-white-2) !important;
 }
 
 .color-white-3 {

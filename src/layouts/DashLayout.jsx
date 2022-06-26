@@ -26,7 +26,7 @@ const MainContainer = styled(Box)(({ theme }) => ({
 const InnerContainer = styled(Box)(({ theme }) => ({
   flexGrow: 1,
   width: '100%',
-  paddingTop: 75,
+  paddingTop: 63,
   paddingLeft: 15,
   paddingRight: 25,
   [theme.breakpoints.down("md")]: {

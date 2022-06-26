@@ -5,7 +5,7 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import PublicIcon from '@mui/icons-material/Public';
 
-import { List, Divider, IconButton, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
+import { List, Divider, IconButton, ListItem, ListItemButton, ListItemIcon, ListItemText, Box, Typography } from '@mui/material';
 import MuiDrawer from '@mui/material/Drawer';
 
 import { DRAWERWIDTH, MENUITEMS } from '../../types/consts.js';
@@ -46,7 +46,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
       whiteSpace: 'nowrap',
       boxSizing: 'border-box',
       '&>div': {
-        background: '#141414'
+        background: '#242424'
       },
       ...(open && {
         ...openedMixin(theme),
@@ -65,7 +65,10 @@ const Sidebar = ({open, handleDrawerClose, selectItem}) => {
 
   return (
     <Drawer variant="permanent" open={open} className="bg-main" >
-        <DrawerHeader>
+        <DrawerHeader style={{minHeight: "50px"}}>
+          <Box sx={{marginRight: "auto"}}>
+            <Typography variant="h5"  sx={{ flexGrow: 1, fontSize: "16px !important", lineHeight: "0rem !important", marginLeft: "10px" }} className='menu-header color-white-3 pointer' onClick={() => navigate('/dashboard')}>Mekaro Hub</Typography>
+          </Box>
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === 'rtl' ? <ChevronRightIcon className='color-white-3' /> : <ChevronLeftIcon className='color-white-3' />}
           </IconButton>
