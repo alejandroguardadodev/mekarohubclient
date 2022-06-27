@@ -1,11 +1,11 @@
-import { useRef } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import { useDrag, useDrop } from 'react-dnd'
 
 import { TableRow, TableCell } from '@mui/material'
 
 import { formatDate } from '../../../helper'
 
-import HighlightAltIcon from '@mui/icons-material/HighlightAlt';
+import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
 
 import useAuth from '../../../hooks/useAuth';
 
@@ -18,35 +18,52 @@ const style = {
     margin: "opx !important"
 }
 
-const ConceptCard = ({id, concept, index, moveItem}) => {
-    const ref = useRef(null)
+const ConceptCard = ({id, concept, index, moveItem, startDrag, prevItems}) => {
+    const dropRef = useRef(null)
+    const dragRef = useRef(null)
+
+    const [hoverItem, setHoverItem] = useState(null)
 
     const { user } = useAuth()
-
     const { title, owner: {_id, username}, createdAt } = concept;
-
     const isOwner = user._id === _id;
 
-    const [{ handlerId }, drop] = useDrop({
-        accept: 'card',
+    const handleClick = (e) => {
+      switch (e.detail) {
+        case 1:
+          console.log("click");
+          break;
+        case 2:
+          console.log("double click");
+          break;
+        case 3:
+          console.log("triple click");
+          break;
+        default:
+          return;
+      }
+    };
 
+    const [{ handlerId }, drop] = useDrop({
+        accept: 'box',
         collect(monitor) {
           return {
             handlerId: monitor.getHandlerId(),
           }
         },
+        drop: (item, monitor) => {
+          const prevId = prevItems[index]._id;
+          const currentId = id;
 
+          console.log({prevId, currentId})
+        },
         hover(item, monitor) {
-          if (!ref.current) return
-          
+          if (!dropRef.current) return
           const dragIndex = item.index
           const hoverIndex = index
-          // Don't replace items with themselves
-          if (dragIndex === hoverIndex) {
-            return
-          }
+          if (dragIndex === hoverIndex) return;
           // Determine rectangle on screen
-          const hoverBoundingRect = ref.current?.getBoundingClientRect()
+          const hoverBoundingRect = dropRef.current?.getBoundingClientRect()
           // Get vertical middle
           const hoverMiddleY =
             (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2
@@ -65,6 +82,7 @@ const ConceptCard = ({id, concept, index, moveItem}) => {
           if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
             return
           }
+          
           // Time to actually perform the action
           moveItem(dragIndex, hoverIndex)
           // Note: we're mutating the monitor item here!
@@ -75,24 +93,31 @@ const ConceptCard = ({id, concept, index, moveItem}) => {
         },
       })
 
-      const [{ isDragging }, drag] = useDrag({
-        type: 'card',
+      const [{ isDragging }, drag, preview] = useDrag({
+        type: 'box',
         item: () => {
+          startDrag()
           return { id, index }
         },
         collect: (monitor) => ({
           isDragging: monitor.isDragging(),
         }),
+        end: (item, monitor) => {
+        },
       })
 
       const opacity = isDragging ? 0 : 1
 
-      drag(drop(ref))
+      drag(dragRef)
+      drop(preview(dropRef))
 
     return (
-      <TableRow ref={ref} style={{ opacity }} data-handler-id={handlerId} sx={{  '& td, & th': { borderColor: "rgba(255,255,255,.25)" }, '&:last-child td, &:last-child th': { border: 0 }, "&:hover": { background: "rgba(255,255,255,.1)" }, cursor: 'pointer' }}>
-        <TableCell align="left" className="color-white-2" sx={{ width: "2%" }}><HighlightAltIcon /></TableCell>
-        <TableCell component="th" scope="row" className="color-white-2" sx={{width: "50%"}}>
+      <TableRow ref={dropRef} style={{ opacity }} data-handler-id={handlerId} sx={{  '& td, & th': { borderColor: "rgba(255,255,255,.25)" }, '&:last-child td, &:last-child th': { border: 0 }, "&:hover": { background: "rgba(255,255,255,.1)" }, cursor: 'pointer' }}>
+        <TableCell ref={dragRef} align="left" className="color-white-2" sx={{ width: "2%" }}>
+          <DragIndicatorIcon />
+        </TableCell>
+        
+        <TableCell onClick={handleClick} component="th" scope="row" className="color-white-2" sx={{width: "50%"}}>
           {title}
         </TableCell>
         <TableCell align="left" className={`${isOwner? 'color-primary-important' : 'color-white-2'}`}>@{username}</TableCell>

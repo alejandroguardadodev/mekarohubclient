@@ -8,25 +8,38 @@ import ConceptCard from './ConceptCard'
 const ConceptList = ({width, concepts}) => {
 
     const [items, setItems] = useState([...concepts]);
+
+    let prevItems = null;
+    
+    const startDragHandle = () => {
+      setItems((prevCards) => {
+        prevItems = prevCards
+        return prevCards
+      })
+    }
     
     useEffect(() => {
         setItems([...concepts])
-
-        console.log('UPDATE')
+        
     }, [concepts])
 
     const moveItem = useCallback((dragIndex, hoverIndex) => {
-        setItems((prevCards) =>
-          update(prevCards, {
+        setItems((prevCards) => {
+          // console.log("prevCards", prevCards)
+          const value = update(prevCards, {
             $splice: [
               [dragIndex, 1],
               [hoverIndex, 0, prevCards[dragIndex]],
             ],
-          }),
+          })
+          // console.log("value", value)
+          return value;
+          }
         )
     }, [])
 
     const renderConcept = useCallback((concept, index) => {
+        
         return (
           <ConceptCard
             key={concept._id}
@@ -34,6 +47,8 @@ const ConceptList = ({width, concepts}) => {
             id={concept._id}
             concept={concept}
             moveItem={moveItem}
+            startDrag={startDragHandle}
+            prevItems={prevItems}
           />
         )
     }, [])
