@@ -5,10 +5,13 @@ import { TableContainer, Paper, Table, TableBody, TableHead, TableRow, TableCell
 
 import ConceptCard from './ConceptCard'
 
+import useConcepts from '../../../hooks/useConcepts';
+
 const ConceptList = ({width, concepts}) => {
 
     const [items, setItems] = useState([...concepts]);
-
+    const { reorderConcept } = useConcepts()
+    
     let prevItems = null;
     
     const startDragHandle = () => {
@@ -17,10 +20,27 @@ const ConceptList = ({width, concepts}) => {
         return prevCards
       })
     }
+
+    const updateOrder = () => {
+      setItems((cards) => {
+        
+        const concepts = cards.map((concept, index) => ({
+          id: concept._id,
+          order: index
+        }))
+
+        reorderConcept(concepts)
+
+        return cards
+      })
+    }
+
+    const resetItems = useCallback(() => {
+      setItems([...concepts])
+    })
     
     useEffect(() => {
-        setItems([...concepts])
-        
+      resetItems()
     }, [concepts])
 
     const moveItem = useCallback((dragIndex, hoverIndex) => {
@@ -49,6 +69,7 @@ const ConceptList = ({width, concepts}) => {
             moveItem={moveItem}
             startDrag={startDragHandle}
             prevItems={prevItems}
+            onUpdate={updateOrder}
           />
         )
     }, [])

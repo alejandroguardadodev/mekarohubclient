@@ -7,8 +7,6 @@ import { formatDate } from '../../../helper'
 
 import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
 
-import useAuth from '../../../hooks/useAuth';
-
 const style = {
     border: '1px dashed gray',
     padding: '0.5rem 1rem',
@@ -18,15 +16,15 @@ const style = {
     margin: "opx !important"
 }
 
-const ConceptCard = ({id, concept, index, moveItem, startDrag, prevItems}) => {
+const ConceptCard = ({id, concept, index, moveItem, startDrag, prevItems, onUpdate}) => {
     const dropRef = useRef(null)
     const dragRef = useRef(null)
 
-    const [hoverItem, setHoverItem] = useState(null)
+    const { title, owner: username, createdAt, isCreator } = concept;
 
-    const { user } = useAuth()
-    const { title, owner: {_id, username}, createdAt } = concept;
-    const isOwner = user._id === _id;
+    const updateOrder = (prev, current) => {
+      console.log({prev, current})
+    }
 
     const handleClick = (e) => {
       switch (e.detail) {
@@ -52,10 +50,12 @@ const ConceptCard = ({id, concept, index, moveItem, startDrag, prevItems}) => {
           }
         },
         drop: (item, monitor) => {
-          const prevId = prevItems[index]._id;
-          const currentId = id;
-
-          console.log({prevId, currentId})
+          if (prevItems) {
+            const prevId = prevItems[index]._id;
+            const currentId = id;
+            onUpdate()
+            //if (prevId !== currentId) updateOrder(prevId, currentId)
+          }
         },
         hover(item, monitor) {
           if (!dropRef.current) return
@@ -120,7 +120,7 @@ const ConceptCard = ({id, concept, index, moveItem, startDrag, prevItems}) => {
         <TableCell onClick={handleClick} component="th" scope="row" className="color-white-2" sx={{width: "50%"}}>
           {title}
         </TableCell>
-        <TableCell align="left" className={`${isOwner? 'color-primary-important' : 'color-white-2'}`}>@{username}</TableCell>
+        <TableCell align="left" className={`${isCreator? 'color-primary-important' : 'color-white-2'}`}>@{username}</TableCell>
         <TableCell align="left" className="color-white-2">{formatDate(createdAt)}</TableCell>
       </TableRow>
     )

@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
 
-import { loadConcepts, saveConcept} from '../reducers/actions/conceptAction';
+import { loadConcepts, saveConcept, reorderConcept} from '../reducers/actions/conceptAction';
 
 import axiosClient, { generateConfig } from '../config/axiosClient';
 
@@ -12,11 +12,13 @@ const useConcepts = () => {
 
     const getAllConcepts = () => dispatch(loadConcepts())
 
+    const changeOrderConcepts = (concepts) => dispatch(reorderConcept(concepts))
+
     const createConcept = async (_data) => {
         try {
             const { data } = await axiosClient.post('/concepts', _data, axioAuthConfig)
             const {concept} = data;
-
+            
             dispatch(saveConcept(concept))
 
             return data
@@ -28,7 +30,8 @@ const useConcepts = () => {
     return {
         concepts,
         loadConcepts: getAllConcepts,
-        saveConcept: createConcept
+        saveConcept: createConcept,
+        reorderConcept: changeOrderConcepts
     }
 }
 
