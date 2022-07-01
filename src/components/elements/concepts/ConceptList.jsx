@@ -6,8 +6,11 @@ import { TableContainer, Paper, Table, TableBody, TableHead, TableRow, TableCell
 import ConceptCard from './ConceptCard'
 
 import useConcepts from '../../../hooks/useConcepts';
+import useAuth from '../../../hooks/useAuth';
 
 const ConceptList = ({width, concepts}) => {
+
+  const {user: { username }} = useAuth()
 
     const [items, setItems] = useState([...concepts]);
     const { reorderConcept } = useConcepts()
@@ -85,7 +88,14 @@ const ConceptList = ({width, concepts}) => {
           </TableRow>
         </TableHead>
         <TableBody>
-            {items.map((item, i) => renderConcept(item, i))}
+          <TableRow sx={{'& td, & th': { borderColor: "rgba(255,255,255,.5)" },}}>
+            <TableCell component="th" scope="row" colSpan={2} className='color-white-2'>
+
+            </TableCell>
+            <TableCell className='color-primary-important'>@{username}</TableCell>
+            <TableCell className='color-white-2'>Created At</TableCell>
+          </TableRow>
+          {items.map((item, i) => renderConcept(item, i))}
         </TableBody>
       </Table>
     </TableContainer>
