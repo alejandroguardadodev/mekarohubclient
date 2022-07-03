@@ -1,6 +1,7 @@
 import { 
     LOAD_AUTH_SUCCESS,
-    LOAD_AUTH_ERROR
+    LOAD_AUTH_ERROR,
+    LOGOUT
  } from "../types/authTypes";
 
  import { 
@@ -61,4 +62,16 @@ const loadSuccess = data => ({
 
 const loadErr = () => ({
     type: LOAD_AUTH_ERROR
+})
+
+// LOGOUT
+export function logout() {
+    return (dispatch) => {
+        dispatch(sendLogOut())
+        localStorage.removeItem('token');
+    }
+}
+
+const sendLogOut = () => ({
+    type: LOGOUT
 })

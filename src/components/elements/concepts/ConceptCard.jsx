@@ -1,128 +1,77 @@
-import { useRef, useState, useEffect } from 'react'
-import { useDrag, useDrop } from 'react-dnd'
+import {TextField, Box} from '@mui/material';
+import { alpha, styled } from '@mui/material/styles';
+import { useState, useEffect } from 'react';
 
-import { TableRow, TableCell } from '@mui/material'
 
-import { formatDate } from '../../../helper'
+const CssTextField = styled(TextField)({
+  '&.no-border .MuiInput-root::after, .MuiInput-root::before': {
+    border: "none !important"
+  },
+  '& label': {
+    color: '#308C8C',
+    fontSize: 16,
+    fontWeight: 300,
+    fontFamily: "'Prompt', sans-serif",
+    letterSpacing: 1,
+  },
+  '& label.hide-label': {
+    display: 'none !important',
+    opacity: '0 !important'
+  },
+  '& .MuiInput-underline:after': {
+    borderBottomColor: '#308C8C',
+  },
+  '& .MuiOutlinedInput-root': {
+    
+    '&:hover fieldset': {
+      borderColor: '#308C8C',
+    },
+    '& fieldset': {
+      borderColor: '#308C8C',
+    },
+  },
+  '& input, & textarea': {
+    color: "var(--color-white-3) !important",
+  }
+});
 
-import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
+const ConceptCard = ({data}) => {
 
-const style = {
-    border: '1px dashed gray',
-    padding: '0.5rem 1rem',
-    marginBottom: '.5rem',
-    backgroundColor: 'transparent',
-    cursor: 'move',
-    margin: "opx !important"
-}
+  const {title, description} = data;
+  const [myDescription, setMyDescription] = useState("")
 
-const ConceptCard = ({id, concept, index, moveItem, startDrag, prevItems, onUpdate}) => {
-    const dropRef = useRef(null)
-    const dragRef = useRef(null)
-
-    const { title, owner: username, createdAt, isCreator } = concept;
-
-    const updateOrder = (prev, current) => {
-      console.log({prev, current})
-    }
-
-    const handleClick = (e) => {
-      switch (e.detail) {
-        case 1:
-          console.log("click");
-          break;
-        case 2:
-          console.log("double click");
-          break;
-        case 3:
-          console.log("triple click");
-          break;
-        default:
-          return;
-      }
-    };
-
-    const [{ handlerId }, drop] = useDrop({
-        accept: 'box',
-        collect(monitor) {
-          return {
-            handlerId: monitor.getHandlerId(),
-          }
-        },
-        drop: (item, monitor) => {
-          if (prevItems) {
-            const prevId = prevItems[index]._id;
-            const currentId = id;
-            onUpdate()
-            //if (prevId !== currentId) updateOrder(prevId, currentId)
-          }
-        },
-        hover(item, monitor) {
-          if (!dropRef.current) return
-          const dragIndex = item.index
-          const hoverIndex = index
-          if (dragIndex === hoverIndex) return;
-          // Determine rectangle on screen
-          const hoverBoundingRect = dropRef.current?.getBoundingClientRect()
-          // Get vertical middle
-          const hoverMiddleY =
-            (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2
-          // Determine mouse position
-          const clientOffset = monitor.getClientOffset()
-          // Get pixels to the top
-          const hoverClientY = clientOffset.y - hoverBoundingRect.top
-          // Only perform the move when the mouse has crossed half of the items height
-          // When dragging downwards, only move when the cursor is below 50%
-          // When dragging upwards, only move when the cursor is above 50%
-          // Dragging downwards
-          if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
-            return
-          }
-          // Dragging upwards
-          if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
-            return
-          }
-          
-          // Time to actually perform the action
-          moveItem(dragIndex, hoverIndex)
-          // Note: we're mutating the monitor item here!
-          // Generally it's better to avoid mutations,
-          // but it's good here for the sake of performance
-          // to avoid expensive index searches.
-          item.index = hoverIndex
-        },
-      })
-
-      const [{ isDragging }, drag, preview] = useDrag({
-        type: 'box',
-        item: () => {
-          startDrag()
-          return { id, index }
-        },
-        collect: (monitor) => ({
-          isDragging: monitor.isDragging(),
-        }),
-        end: (item, monitor) => {
-        },
-      })
-
-      const opacity = isDragging ? 0 : 1
-
-      drag(dragRef)
-      drop(preview(dropRef))
+  useEffect(() => {
+    setMyDescription(data.description? data.description : "N/A")
+  }, [data])
 
     return (
-      <TableRow ref={dropRef} style={{ opacity }} data-handler-id={handlerId} sx={{  '& td, & th': { borderColor: "rgba(255,255,255,.25)" }, '&:last-child td, &:last-child th': { border: 0 }, "&:hover": { background: "rgba(255,255,255,.1)" }, cursor: 'pointer' }}>
-        <TableCell ref={dragRef} align="left" className="color-white-2" sx={{ width: "2%" }}>
-          <DragIndicatorIcon />
-        </TableCell>
-        
-        <TableCell onClick={handleClick} component="th" scope="row" className="color-white-2" sx={{width: "50%"}}>
-          {title}
-        </TableCell>
-        <TableCell align="left" className={`${isCreator? 'color-primary-important' : 'color-white-2'}`}>@{username}</TableCell>
-        <TableCell align="left" className="color-white-2">{formatDate(createdAt)}</TableCell>
-      </TableRow>
+      <>
+        <Box className='w-100'>
+          <CssTextField
+            id="title-read-only"
+            label="Concept Title"
+            value={title}
+            InputProps={{
+              readOnly: true,
+            }}
+            fullWidth
+          />
+        </Box>
+
+        <Box className='w-100' mt={4}>
+          <CssTextField
+            id="description-read-only"
+            label="Concept Description"
+            value={myDescription}
+            InputProps={{
+              readOnly: true,
+            }}
+            fullWidth
+            multiline
+            rows={4}
+          />
+        </Box>
+      </>
     )
 }
 

@@ -1,5 +1,6 @@
 import {useNavigate} from 'react-router-dom'
 
+import useRightBar from '../../../hooks/useRightBar';
 import useRow from "../../../hooks/useRow";
 import { formatDate } from '../../../helper'
 
@@ -14,6 +15,8 @@ const ConceptRow = ({index, id, item, register}) => {
     const { title, owner: username, createdAt, isCreator } = item;
     const { dropRef, dragRef, rowOpacity, handlerId } = useRow({register, id, index})
 
+    const { showRightBar } = useRightBar()
+
     const navigate = useNavigate()
 
     const subMenuItems = [
@@ -27,7 +30,7 @@ const ConceptRow = ({index, id, item, register}) => {
     const handleClick = (e) => {
         switch (e.detail) {
           case 2:
-            alert("double click");
+            showRightBar({width: 300, data: item, toShow: 'ConceptInfo'})
             break;
         }
       };

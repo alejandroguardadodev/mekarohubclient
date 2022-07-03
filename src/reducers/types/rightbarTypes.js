@@ -1,0 +1,2 @@
+export const OPEN_RIGHT_BAR = "OPEN_RIGHT_BAR"
+export const CLOSE_RIGHT_BAR = "CLOSE_RIGHT_BAR"

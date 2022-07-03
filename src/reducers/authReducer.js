@@ -1,6 +1,7 @@
 import { 
     LOAD_AUTH_SUCCESS,
-    LOAD_AUTH_ERROR
+    LOAD_AUTH_ERROR,
+    LOGOUT
 } from "./types/authTypes";
 
 const initialState = {
@@ -26,7 +27,14 @@ export default function(state = initialState, action) {
                 ...state,
                 isAuth: false
             }
-            
+        
+        case LOGOUT:
+            return {
+                ...state,
+                user: {},
+                isAuth: false
+            }
+
         default:
             return state;
     }

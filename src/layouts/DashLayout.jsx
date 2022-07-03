@@ -3,12 +3,13 @@ import { useEffect, useState, useCallback } from "react";
 import { styled } from '@mui/material/styles';
 import { useResizeDetector } from 'react-resize-detector';
 
-
+import useRightBar from "../hooks/useRightBar";
 import useAuth from '../hooks/useAuth';
 import useLoadScreen from '../hooks/useLoadScreen';
 
 import Navbar from "../components/UI/Navbar";
 import Sidebar from "../components/UI/Sidebar";
+import RightBar from "../components/UI/RightBar";
 
 import { Box, CssBaseline } from "@mui/material"
 
@@ -52,6 +53,8 @@ const DashLayout = () => {
   const handleDrawerOpen = () => setOpen(true);
   const handleDrawerClose = () => setOpen(false);
 
+  const { openRightBar } = useRightBar()
+
   useEffect(() => {
     loadAuth(false)
 
@@ -81,6 +84,8 @@ const DashLayout = () => {
       <InnerContainer ref={innerContainerRef}>
         <Outlet context={[currentItem, innerContainerWidth]} />
       </InnerContainer>
+
+      <RightBar open={openRightBar} />
 
       {showLoadScreen()}
     </MainContainer>

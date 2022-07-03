@@ -200,6 +200,18 @@ code {
   box-shadow: -10px 0px 35px -15px rgba(0,0,0,0.65);
 }
 
+/* Text Area */
+.textarea-input-style {
+  -webkit-appearance: none;
+  resize: none;
+  font-size: 16px !important;
+  font-weight: 400 !important;
+  font-family: 'Prompt',sans-serif !important;
+  background: none;
+  color: var(--color-white-3)!important;
+
+}
+
 /**Flex */
 .flex-col-center {
   display: flex;

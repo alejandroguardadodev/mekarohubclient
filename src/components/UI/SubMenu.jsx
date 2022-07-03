@@ -1,6 +1,6 @@
 import { styled } from '@mui/material/styles';
 
-import { Menu, IconButton, Typography, MenuItem } from '@mui/material';
+import { Menu, IconButton, Typography, MenuItem, Divider } from '@mui/material';
 
 import useSubMenu from '../../hooks/useSubMenu'
 
@@ -36,7 +36,9 @@ const SubMenu = ({icon, id, items}) => {
             open={Boolean(elementAnchor)}
             onClose={closeMenu}
         >
-            {items && items.map(item => (
+            {items && items.map((item, index) => (
+                item.special? 
+                <Divider key={`divider-${index}`} style={{borderColor: "rgba(255, 255, 255, .3)"}} />:
                 <MenuItem key={item.id} onClick={() => { item.click(); closeMenu(); }}>{item.title}</MenuItem>
             ))}
         </CustomeMenu>

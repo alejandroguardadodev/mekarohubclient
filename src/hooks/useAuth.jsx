@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
 
-import { loadAuth } from '../reducers/actions/authActions';
+import { loadAuth, logout } from '../reducers/actions/authActions';
 
 import { generateConfig } from '../config/axiosClient';
 
@@ -10,6 +10,7 @@ const useAuth = () => {
     const { isAuth, user } = useSelector(state => state.auth)
 
     const getAuthSession = (showMessage = true) => dispatch(loadAuth(showMessage))
+    const sendLogout = () => dispatch(logout())
 
     let token = localStorage.getItem('token');
 
@@ -19,7 +20,8 @@ const useAuth = () => {
         isAuth,
         user,
         axioAuthConfig,
-        loadAuth: getAuthSession
+        loadAuth: getAuthSession,
+        logout: sendLogout
     }
 }
 

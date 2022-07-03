@@ -11,6 +11,8 @@ import SubMenu from './SubMenu.jsx';
 
 import { DRAWERWIDTH } from '../../types/consts.js'
 
+import useAuth from '../../hooks/useAuth.jsx';
+
 // NEW APP BAR ///////////////////
 const AppBar = styled(MuiAppBar, { shouldForwardProp: (prop) => prop !== 'open', })(({ theme, open }) => ({
   zIndex: theme.zIndex.drawer + 1,
@@ -30,6 +32,8 @@ const AppBar = styled(MuiAppBar, { shouldForwardProp: (prop) => prop !== 'open',
 const Navbar = ({open, handleDrawerOpen}) => {
 
   const navigate = useNavigate()
+  const { logout } = useAuth()
+
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleMenu = (event) => {
@@ -50,6 +54,17 @@ const Navbar = ({open, handleDrawerOpen}) => {
       id: 1,
       title: 'Notifies',
       click: () => {}
+    },
+    {
+      special: 'Divider',
+    },
+    {
+      id: 2,
+      title: 'Log Out',
+      click: () => {
+        logout()
+        navigate('/')
+      }
     }
   ]
 
