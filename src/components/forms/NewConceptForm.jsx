@@ -10,9 +10,9 @@ import useClientForm from "../../hooks/useClientForm";
 import { Box, Button } from '@mui/material';
 import Input from '../controls/Input'
 
-const NewContentForm = ({closeModal}) => {
+const NewConceptForm = ({closeModal, modalTitleValue}) => {
     
-    const { formData, errors, register, setErrorsByErr, onSubmit, showSuccessMessage } = useClientForm(NewContentSchemas, { title: "", description: "" })
+    const { formData, errors, register, setErrorsByErr, onSubmit, showSuccessMessage, setValue } = useClientForm(NewContentSchemas, { title: "", description: "" })
     const { saveConcept } = useConcepts()
 
     const createConcept = async (_data) => {
@@ -22,6 +22,10 @@ const NewContentForm = ({closeModal}) => {
         showSuccessMessage(data.msg)
         closeModal()
     }
+
+    useEffect(() => {
+        if (modalTitleValue) setValue('title', modalTitleValue, { shouldValidate: true } )
+    }, [modalTitleValue])
 
     useEffect(() => {
         if (formData) createConcept(formData)
@@ -41,4 +45,4 @@ const NewContentForm = ({closeModal}) => {
   )
 }
 
-export default NewContentForm
+export default NewConceptForm

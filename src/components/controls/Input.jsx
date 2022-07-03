@@ -6,12 +6,19 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
 const CostumInputStyle = styled(TextField)({
+  '&.no-border .MuiInput-root::after, .MuiInput-root::before': {
+    border: "none !important"
+  },
   '& label': {
     color: '#959EB1',
     fontSize: 16,
     fontWeight: 300,
     fontFamily: "'Prompt', sans-serif",
     letterSpacing: 1,
+  },
+  '& label.hide-label': {
+    display: 'none !important',
+    opacity: '0 !important'
   },
   '& label.Mui-focused': {
     color: '#308C8C',
@@ -30,11 +37,15 @@ const CostumInputStyle = styled(TextField)({
       borderColor: '#308C8C',
     },
   },
+  '&.c-white-2 .MuiInput-input': {
+    color: "var(--color-white-2) !important",
+  }
 });
 
 
-const Input = ({id, label, register, errors, type, className, multiline=false, maxRows=null, rows=null}) => {
+const Input = ({id, label, register, errors, type, className, multiline=false, rows=null, inputType=null, inputSize="normal"}) => {
   const [showPassword, setShowPassword] = useState(false);
+
   const handleClickShowPassword = () => setShowPassword(!showPassword);
   const handleMouseDownPassword = () => setShowPassword(!showPassword);
 
@@ -49,11 +60,10 @@ const Input = ({id, label, register, errors, type, className, multiline=false, m
         error={!!errors[id]} 
         helperText={errors[id] ? errors[id].message : null}
         type={ !isPassword? type : ( showPassword ? 'text' : 'password' ) }
-        className={className}
+        className={`${className}`}
         multiline={multiline}
-        maxRows={rows}
         rows={rows}
-        InputProps={{ 
+        InputProps={{
           endAdornment: isPassword ? (
             <InputAdornment position="end">
               <IconButton
@@ -64,8 +74,10 @@ const Input = ({id, label, register, errors, type, className, multiline=false, m
                 {showPassword ? <VisibilityIcon style={{ color: '#959EB1' }} /> : <VisibilityOffIcon style={{ color: '#959EB1' }} />}
               </IconButton>
             </InputAdornment>
-          ) : null
+          ) : null,
         }}
+        variant={inputType? inputType : 'outlined' }
+        size={inputSize}
         />
   )
 }

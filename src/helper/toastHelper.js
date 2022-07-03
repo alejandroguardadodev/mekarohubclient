@@ -1,6 +1,6 @@
 import { toast } from 'react-toastify';
 
-export const createToast = msg => toast.loading(msg);
+export const createToast = msg => toast.loading(msg, {position: "bottom-right",});
 
 export const updateToastError = (id, msg) => {
     toast.update(id, {

@@ -16,12 +16,20 @@ import { Button } from '@mui/material'
 const Concept = () => {
 
   const { concepts, loadConcepts } = useConcepts()
-
-    const [showNewContentModal, setShowNewContentModal] = useState(false)
     const [currentItem, innerContainerWidth] = useOutletContext();
 
-    const openNewConentModal = () => setShowNewContentModal(true);
+    const [modalTitleValue, setModalTitleValue] = useState(null)
+
+    const [showNewContentModal, setShowNewContentModal] = useState(false)
+    const openNewConentModal = (title) => {
+      setShowNewContentModal(true);
+      setModalTitleValue(title)
+    }
     const closeNewContentModal = () => setShowNewContentModal(false);
+
+    const [showNewConceptRow, setShowNewConceptRow] = useState(false)
+    const openNewConceptRow = () => setShowNewConceptRow(true);
+    const closeNewConceptRow = () => setShowNewConceptRow(false);
     
     useEffect(() => {
       loadConcepts()
@@ -30,12 +38,12 @@ const Concept = () => {
   return (
     <BodyPage>
       <BodyHeader item={currentItem}>
-        <Button variant="text" sx={{ fontWeight: 400, }} startIcon={<AddIcon />} className="capitalize" onClick={openNewConentModal}> New Concept </Button>
+        <Button variant="text" sx={{ fontWeight: 400, }} startIcon={<AddIcon />} className="capitalize" onClick={openNewConceptRow}> New Concept </Button>
       </BodyHeader>
 
-      <ConceptHomeSection concepts={concepts} width={innerContainerWidth}/>
+      <ConceptHomeSection concepts={concepts} width={innerContainerWidth} showNewConceptRow={showNewConceptRow} openNewConentModal={openNewConentModal} closeNewConceptRow={closeNewConceptRow}/>
 
-      <ModalNewConcept open={showNewContentModal} handleClose={closeNewContentModal}/>
+      <ModalNewConcept modalTitleValue={modalTitleValue} open={showNewContentModal} handleClose={closeNewContentModal}/>
     </BodyPage>
   )
 }

@@ -1,7 +1,7 @@
 import { Modal, Typography, Backdrop, Box  } from "@mui/material"
 import { styled } from '@mui/material/styles';
 
-import NewContentForm from "../forms/NewContentForm";
+import NewConceptForm from "../forms/NewConceptForm";
 
 const MainBox = styled(Box)(({ theme }) => ({
     position: 'absolute',
@@ -16,7 +16,7 @@ const MainBox = styled(Box)(({ theme }) => ({
     boxShadow: '0px 10px 20px -8px rgba(0,0,0,0.6)',
 }))
 
-const ModalNewConcept = ({open, handleClose}) => {
+const ModalNewConcept = ({open, handleClose, modalTitleValue}) => {
     
   return (
     <Modal aria-labelledby="transition-modal-title" aria-describedby="transition-modal-description"
@@ -31,7 +31,7 @@ const ModalNewConcept = ({open, handleClose}) => {
           Create new concept
         </Typography>
         <Box id="transition-modal-description" sx={{ mt: 2, width: '100%' }}>
-          <NewContentForm closeModal={handleClose} />
+          <NewConceptForm modalTitleValue={modalTitleValue} closeModal={handleClose} />
         </Box>
       </MainBox>
   </Modal>

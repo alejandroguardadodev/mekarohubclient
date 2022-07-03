@@ -27,3 +27,7 @@ export const SignUpSchemas = yup.object({
     title: yup.string().required('This field is required'),
     description: yup.string()
   }).required();
+
+  export const NewContentRowSchemas = yup.object({
+    title: yup.string().required('This field is required'),
+  }).required();

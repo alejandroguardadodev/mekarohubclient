@@ -9,7 +9,7 @@ import { createToast, updateToastError, updateToastSuccess } from "../helper/toa
 const useClientForm = (customSchema, defaultValues, isAsync = true) => {
     const [data, setData] = useState(null)
     const [toastId, setToastId] = useState(null)
-    const { register, setError, handleSubmit, clearErrors, reset, formState: {errors} } = useForm({ resolver: yupResolver(customSchema) })
+    const { register, setError, handleSubmit, clearErrors, reset, formState: {errors}, getValues, setValue } = useForm({ resolver: yupResolver(customSchema), mode: "onChange" })
 
     const resetValues = () => {
         reset(defaultValues, {
@@ -64,7 +64,9 @@ const useClientForm = (customSchema, defaultValues, isAsync = true) => {
         setErrorsByFields,
         setErrorsByErr,
         onSubmit: handleSubmit(onSubmit),
-        showSuccessMessage
+        showSuccessMessage,
+        getValues,
+        setValue
     }
 }
 
