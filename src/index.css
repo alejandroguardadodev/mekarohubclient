@@ -29,6 +29,16 @@ code {
     monospace;
 }
 
+/* Hover */
+.hover-border:hover {
+  border-bottom: 1px solid #86BF84;
+  transition: all ease-in-out .2s;
+  -webkit-transition: all ease-in-out .2s;
+  -moz-transition: all ease-in-out .2s;
+  -ms-transition: all ease-in-out .2s;
+  -o-transition: all ease-in-out .2s;
+}
+
 /* Margin */
 .m-0 {
   margin: 0px !important;
@@ -42,6 +52,14 @@ code {
 .pt-1 {
   padding-top: 5px !important;
 }
+
+.pt-2 {padding-top: 10px !important;}
+.pt-3 {padding-top: 15px !important;}
+.pt-4 {padding-top: 20px !important;}
+.pt-5 {padding-top: 25px !important;}
+.pt-6 {padding-top: 30px !important;}
+.pt-7 {padding-top: 35px !important;}
+.pt-8 {padding-top: 40px !important;}
 
 /**Text */
 .text-center {

@@ -22,6 +22,8 @@ import Dashboard from "./pages/Dashboard";
 
 import Concept from "./pages/Concept";
 
+import MyProfile from "./pages/MyProfile";
+
 import 'react-toastify/dist/ReactToastify.css';
 import './style/toast.css'
 
@@ -48,6 +50,10 @@ function App() {
 
             <Route path="/concept" element={<DashLayout />}>
               <Route index element={<Concept />} />
+            </Route>
+
+            <Route path="/my-profile" element={<DashLayout />}>
+              <Route index element={<MyProfile />} />
             </Route>
           </Routes>
 

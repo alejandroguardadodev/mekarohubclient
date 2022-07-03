@@ -37,7 +37,7 @@ const SubMenu = ({icon, id, items}) => {
             onClose={closeMenu}
         >
             {items && items.map(item => (
-                <MenuItem key={item.id} onClick={closeMenu}>{item.title}</MenuItem>
+                <MenuItem key={item.id} onClick={() => { item.click(); closeMenu(); }}>{item.title}</MenuItem>
             ))}
         </CustomeMenu>
 </div>

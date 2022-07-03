@@ -12,6 +12,12 @@ const tableStyle = {
     },
   },
   '&.theme-white .MuiTableRow-root': {
+    '& td.sub-menu button, & th.sub-menu button': {
+      lineHeight: 1.43,
+      fontSize: "15px !important",
+      fontWeight: 300,
+      fontFamily: "'Poppins',sans-serif",
+    },
     '& td.highlight, & th.highlight': {
       color: "var(--color-primary) !important"
     },

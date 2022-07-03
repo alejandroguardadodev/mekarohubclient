@@ -7,6 +7,7 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 
 import { Menu, MenuItem, IconButton, Typography, Toolbar } from '@mui/material';
 import MuiAppBar from '@mui/material/AppBar';
+import SubMenu from './SubMenu.jsx';
 
 import { DRAWERWIDTH } from '../../types/consts.js'
 
@@ -27,6 +28,7 @@ const AppBar = styled(MuiAppBar, { shouldForwardProp: (prop) => prop !== 'open',
 }));
 
 const Navbar = ({open, handleDrawerOpen}) => {
+
   const navigate = useNavigate()
   const [anchorEl, setAnchorEl] = useState(null);
 
@@ -38,6 +40,19 @@ const Navbar = ({open, handleDrawerOpen}) => {
     setAnchorEl(null);
   };
 
+  const perfilSubMenuItems = [
+    {
+      id: 0,
+      title: 'My Profile',
+      click: () => navigate('/my-profile')
+    },
+    {
+      id: 1,
+      title: 'Notifies',
+      click: () => {}
+    }
+  ]
+
   return (
       <AppBar position="fixed" style={{background: "#1C1C1C"}} open={open}>
         <Toolbar className='flex-row-between' style={{ minHeight: "50px" }}>
@@ -46,27 +61,8 @@ const Navbar = ({open, handleDrawerOpen}) => {
           </IconButton>
           <Typography variant="h5"  sx={{ ...(open && { display: 'none' }), flexGrow: 1, fontSize: "16px !important", lineHeight: "0rem !important" }} className='menu-header color-white-3 pointer' onClick={() => navigate('/dashboard')}>Mekaro Hub</Typography>
           <div style={{ marginLeft: "auto" }}>
-              <IconButton size="large" aria-label="account of current user" aria-controls="menu-appbar" aria-haspopup="true" onClick={handleMenu}color="inherit">
-                <AccountCircle className='color-white-3' />
-              </IconButton>
-
-              <Menu id="menu-appbar" anchorEl={anchorEl}
-                anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                open={Boolean(anchorEl)}
-                onClose={handleClose}
-              >
-                <MenuItem onClick={handleClose}>Profile</MenuItem>
-                <MenuItem onClick={handleClose}>My account</MenuItem>
-              </Menu>
-            </div>
+            <SubMenu id="my-perfil-submenu" icon={<AccountCircle className='color-white-3' />} items={perfilSubMenuItems} />
+          </div>
         </Toolbar>
       </AppBar>
   );
