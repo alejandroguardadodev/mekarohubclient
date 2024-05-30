@@ -12,14 +12,17 @@ import {
 
 import axiosClient, {generateConfig} from "../../config/axiosClient";
 
-export function loadAuth(showMessage) {
+export function loadAuth(showMessage, onAuth) {
     return async (dispatch) => {
         dispatch(startLoadingScreen())
-
+        
         try {
             let token = localStorage.getItem('token');
 
-            if (!token) return dispatch(endLoadingScreen())
+            if (!token) {
+                dispatch(endLoadingScreen())
+                throw 'Data not valid';
+            }
 
             const config = generateConfig(token)
             
@@ -30,11 +33,14 @@ export function loadAuth(showMessage) {
                 else dispatch(endLoadingScreen())
 
                 dispatch(loadSuccess(data))
+
+                onAuth(true)
                 
             } else throw 'Data not valid';
         } catch (err) {
             dispatch(endLoadingScreen())
             dispatch(loadErr())
+            onAuth(false)
         }
     }
 }

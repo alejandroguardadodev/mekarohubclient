@@ -1,3 +1,4 @@
+import { styled } from '@mui/system'
 import { useParams, Link } from 'react-router-dom'
 import { useTheme } from '@mui/material/styles';
 import { Box, Typography, Divider } from '@mui/material'
@@ -5,9 +6,32 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 
 import NewPasswordForm from '../components/forms/NewPasswordForm'
 
-import { Container } from '../designs'
 
 import goldKey from '../imgs/gold-key.png'
+
+const NewPasswordContainer = styled(Box)(({ theme }) => ({
+    maxWidth: '400px',
+    borderRadius: '5px',
+    boxSizing: 'border-box',
+    border: '1px solid rgba(255,255,255,.3)',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    [theme.breakpoints.up('sm')]: {
+      '&:hover': {
+        boxShadow: "0px 0px 25px -5px rgba(192, 227, 170, 0.8)",
+        border: '1px solid rgb(192, 227, 170)',
+      }
+    },
+    [theme.breakpoints.down('sm')]: {
+      borderRadius: '0px !important',
+      maxWidth: '100%',
+      width: '100%',
+      height: '100%',
+      border: '0px !important'
+    }
+  }))
 
 const NewPassword = () => {
     const theme = useTheme();
@@ -18,7 +42,7 @@ const NewPassword = () => {
 
   return (
     <>
-        <Container container className='rounded w-70 bg-dark-1 flex-col-center' p={5} style={{ maxWidth: '400px' }}>
+        <NewPasswordContainer container className='bg-dark-1 ' p={5}>
             <img src={goldKey} width={80} />
             <Typography variant="h3" mt={3} className='sub-title color-white-1 text-center'>Create a new password</Typography>
 
@@ -32,7 +56,7 @@ const NewPassword = () => {
                 <Link to="/" style={{ fontWeight: 600 }} className='mh-link color-main'>Sign In</Link>
                 <Link to="/signup" style={{ fontWeight: 600 }} className='mh-link color-main'>Sign Up</Link>
             </Box>
-        </Container>
+        </NewPasswordContainer>
     </>
   )
 }

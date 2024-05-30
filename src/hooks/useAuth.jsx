@@ -9,7 +9,7 @@ const useAuth = () => {
 
     const { isAuth, user } = useSelector(state => state.auth)
 
-    const getAuthSession = (showMessage = true) => dispatch(loadAuth(showMessage))
+    const getAuthSession = (onAuth, showMessage = true) => dispatch(loadAuth(showMessage, onAuth))
     const sendLogout = () => dispatch(logout())
 
     let token = localStorage.getItem('token');

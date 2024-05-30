@@ -1,3 +1,4 @@
+import { styled } from '@mui/system'
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
@@ -8,7 +9,25 @@ import padlock from "../imgs/padlock.png"
 
 import RecoverPasswordForm from '../components/forms/RecoverPasswordForm';
 
-import { Container } from "../designs"
+const RecoverPasswordContainer = styled(Grid)(({ theme }) => ({
+  maxWidth: '400px',
+  borderRadius: '5px',
+  boxSizing: 'border-box',
+  border: '1px solid rgba(255,255,255,.3)',
+  [theme.breakpoints.up('sm')]: {
+    '&:hover': {
+      boxShadow: "0px 0px 25px -5px rgba(192, 227, 170, 0.8)",
+      border: '1px solid rgb(192, 227, 170)',
+    }
+  },
+  [theme.breakpoints.down('sm')]: {
+    borderRadius: '0px !important',
+    maxWidth: '100%',
+    width: '100%',
+    height: '100%',
+    border: '0px !important'
+  }
+}))
 
 const RecoverPassword = () => {
   const theme = useTheme();
@@ -17,7 +36,7 @@ const RecoverPassword = () => {
 
   return (
     <>
-        <Container container className='rounded w-70 bg-dark-1' p={5} style={{ maxWidth: '400px' }}>
+        <RecoverPasswordContainer container className='bg-dark-1' p={5}>
             <Grid item xs={12} className="flex-col-center">
                 <Box mb={3}> <img src={padlock} width={70}/> </Box>
 
@@ -34,7 +53,7 @@ const RecoverPassword = () => {
                   <Link to="/signup" style={{ fontWeight: 600 }} className='mh-link color-main'>Sign Up</Link>
               </Box>
             </Grid>
-        </Container>
+        </RecoverPasswordContainer>
     </>
   )
 }

@@ -46,7 +46,7 @@ const DashLayout = () => {
   const [open, setOpen] = useState(false); // Open Main Menu
   const [currentItem, setCurrentItem] = useState({})
 
-  const { isAuth, loadAuth } = useAuth()
+  const { loadAuth } = useAuth()
   const { showLoadScreen, resetLoadScreen } = useLoadScreen()
 
 
@@ -56,7 +56,12 @@ const DashLayout = () => {
   const { openRightBar } = useRightBar()
 
   useEffect(() => {
-    loadAuth(false)
+    loadAuth((auth) => {
+      if (!auth) {
+        resetLoadScreen()
+        navigate('/')
+      }
+    }, false)
 
     const path = location.pathname;
     const currentPage = path.split('/')[1];
@@ -67,13 +72,6 @@ const DashLayout = () => {
       if (item) setCurrentItem(item)
     }
   }, [])
-
-  useEffect(() => {
-    if (!isAuth) {
-      resetLoadScreen()
-      navigate('/')
-    }
-  }, [isAuth])
   
   return (
     <MainContainer>

@@ -26,19 +26,17 @@ const CustomeContainer = styled(Container)(({ theme }) => ({
 const AuthLayout = () => {
   const navigate = useNavigate()
   
-  const { isAuth, loadAuth } = useAuth()
+  const { loadAuth } = useAuth()
   const { showLoadScreen, resetLoadScreen } = useLoadScreen()
 
   useEffect(() => {
-    loadAuth()
+    loadAuth((auth) => {
+      if (auth) {
+        resetLoadScreen()
+        navigate('/dashboard')
+      }
+    })
   }, [])
-
-  useEffect(() => {
-    if (isAuth) {
-      resetLoadScreen()
-      navigate('/dashboard')
-    }
-  }, [isAuth])
 
   return (
     <CustomeContainer>
