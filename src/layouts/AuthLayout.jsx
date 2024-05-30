@@ -11,19 +11,16 @@ import useLoadScreen from '../hooks/useLoadScreen';
 import '../style/auth.css'
 
 const CustomeContainer = styled(Container)(({ theme }) => ({
-  [theme.breakpoints.up("lg")]: {
-    height: '100vh', 
-    display: 'flex', 
-    justifyContent: 'center', 
-    alignItems: 'center',
-    flexDirection: "column"
-  },
+  height: '100vh', 
+  width: '100vw',
+  display: 'flex', 
+  flexDirection: "column",
+  justifyContent: 'center', 
+  alignItems: 'center',
+  boxSizing: 'border-box',
   [theme.breakpoints.down("md")]: {
-    padding: "50px 20px"
-  },
-  [theme.breakpoints.down("sm")]: {
-    padding: "0px"
-  },
+    padding: "0px",
+  }
 }))
 
 const AuthLayout = () => {

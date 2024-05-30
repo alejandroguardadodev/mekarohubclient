@@ -1,5 +1,15 @@
 import { createTheme } from '@mui/material/styles';
 
+const breakpoints = {
+  values: {
+    xs: 0,
+    sm: 600, 
+    md: 1022, 
+    lg: 1400, 
+    xl: 1736
+  }
+}
+
 export const muiTheme =  createTheme({
   palette: {
     primary: {
@@ -12,8 +22,8 @@ export const muiTheme =  createTheme({
     },
     tonalOffset: 0.2,
   },
-
-    typography: {
+  breakpoints: breakpoints,
+  typography: {
         h1: {
             fontSize: 28,
             fontWeight: 900,

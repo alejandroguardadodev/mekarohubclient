@@ -1,3 +1,4 @@
+import { styled } from '@mui/system'
 import { SignUpSchemas } from "../../schemas";
 
 import { useEffect } from "react";
@@ -9,6 +10,10 @@ import useClientForm from "../../hooks/useClientForm"
 import { TextFieldGroup } from "../../designs";
 import { Box, Button } from '@mui/material';
 import Input from "../controls/Input";
+
+const CustomForm = styled('form')(() => ({
+  width: '100%'
+}))
 
 const SignUpForm = () => {
   const navigate = useNavigate()
@@ -37,7 +42,7 @@ const SignUpForm = () => {
   }, [formData])
 
   return (
-    <form onSubmit={onSubmit}>
+    <CustomForm onSubmit={onSubmit}>
       <Box mt={3} fullWidth>
         <TextFieldGroup>
           <Input id="firstName" className="remove-space-input" label="First Name" register={register} errors={errors} />
@@ -49,17 +54,15 @@ const SignUpForm = () => {
         <Box mt={3}>
           <Input id="email" type="email" label="Email" register={register} errors={errors} />
         </Box>
-        <Box mt={3}>
+        <TextFieldGroup mt={3}>
           <Input id="password" type="password" label="Password" register={register} errors={errors} />
-        </Box>
-        <Box mt={3}>
           <Input id="confirmPassword" type="password" label="Confirm Password" register={register} errors={errors} />
-        </Box>
+        </TextFieldGroup>
         <Box mt={3}>
           <Button type="submit" variant="outlined" size="large" sx={{ padding: "10px 40px", fontWeight: 700 }}>Create Account</Button>
         </Box>
       </Box>
-    </form>
+    </CustomForm>
   )
 }
 

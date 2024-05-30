@@ -14,7 +14,7 @@ export const Container = styled(Grid)(({ theme }) => ({
     '&.w-50': {
         width: '50%',
     },
-    [theme.breakpoints.down("md")]: {
+    [theme.breakpoints.down("lg")]: {
         '&.w-70': {
             width: '100%',
         },
@@ -50,12 +50,12 @@ export const TwoItemBetween = styled(Box)(({ theme }) => ({
 export const TextFieldGroup = styled(Box)(({ theme }) => ({
     width: '100%',
     display: 'block',
-    [theme.breakpoints.up("lg")]: {
+    [theme.breakpoints.up("sm")]: {
       display: "flex", 
       justifyContent: "space-between", 
       gap: '20px'
     },
-    [theme.breakpoints.down("lg")]: {
+    [theme.breakpoints.down("sm")]: {
       '&>.MuiFormControl-root': {
         marginTop: '24px'
       },
