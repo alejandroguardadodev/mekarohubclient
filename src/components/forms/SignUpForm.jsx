@@ -11,6 +11,8 @@ import { TextFieldGroup } from "../../designs";
 import { Box, Button } from '@mui/material';
 import Input from "../controls/Input";
 
+import Swal from 'sweetalert2';
+
 const CustomForm = styled('form')(() => ({
   width: '100%'
 }))
@@ -30,6 +32,13 @@ const SignUpForm = () => {
   const signUp = async (_data) => {
     try {
       const { data } = await axiosClient.post('/users/signup', _data)
+
+      Swal.fire({
+        title: "Good job!",
+        text: "You clicked the button!",
+        icon: "success"
+      });
+
       showSuccessMessage(data.msg)
       navigate('/')
     } catch (err) {
