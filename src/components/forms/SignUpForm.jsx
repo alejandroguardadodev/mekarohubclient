@@ -68,7 +68,7 @@ const SignUpForm = () => {
           <Input id="email" type="email" label="Email" register={register} errors={errors} />
         </Box>
         <TextFieldGroup mt={3}>
-          <Input id="password" type="password" label="Password" register={register} errors={errors} />
+          <Input id="password" className="remove-space-input" type="password" label="Password" register={register} errors={errors} />
           <Input id="confirmPassword" type="password" label="Confirm Password" register={register} errors={errors} />
         </TextFieldGroup>
         <Box mt={3}>
