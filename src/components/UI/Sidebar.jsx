@@ -10,6 +10,8 @@ import MuiDrawer from '@mui/material/Drawer';
 
 import { DRAWERWIDTH, MENUITEMS } from '../../types/consts.js';
 
+import useMediaQuery from '@mui/material/useMediaQuery';
+
 const openedMixin  = (theme) => ({
   width: DRAWERWIDTH,
   transition: theme.transitions.create('width', {
@@ -31,6 +33,15 @@ const closedMixin  = (theme) => ({
   },
 });
 
+const closedMixinPhone  = (theme) => ({
+  transition: theme.transitions.create('width', {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
+  }),
+  overflowX: 'hidden',
+  width: `0px !important`,
+});
+
 const DrawerHeader = styled('div')(({ theme }) => ({
     display: 'flex',
     alignItems: 'center',
@@ -39,6 +50,16 @@ const DrawerHeader = styled('div')(({ theme }) => ({
     ...theme.mixins.toolbar,
 }));
   
+const ShadowBox = styled('div')(() => ({
+  position: 'absolute',
+  top: 0,
+  left: 0,
+  width: '100vw',
+  height: '100vh',
+  background: 'rgba(0,0,0,.5)',
+  zIndex: 9999,
+}))
+
 const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
     ({ theme, open }) => ({
       width: DRAWERWIDTH,
@@ -56,6 +77,14 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
         ...closedMixin(theme),
         '& .MuiDrawer-paper': closedMixin(theme),
       }),
+      [theme.breakpoints.down('lg')]: {
+        position: 'absolute',
+        zIndex: 99999,
+        ...(!open && {
+          ...closedMixinPhone(theme),
+          '& .MuiDrawer-paper': closedMixinPhone(theme),
+        }),
+      }
     }),
 );
 
@@ -63,8 +92,12 @@ const Sidebar = ({open, handleDrawerClose, selectItem}) => {
   const theme = useTheme();
   const navigate = useNavigate()
 
+
+  const showShadow = useMediaQuery(theme.breakpoints.down('lg'));
+
   return (
-    <Drawer variant="permanent" open={open} className="bg-main" >
+    <>
+      <Drawer variant="permanent" open={open} className="bg-main" >
         <DrawerHeader style={{minHeight: "50px"}}>
           <Box sx={{marginRight: "auto"}}>
             <Typography variant="h5"  sx={{ flexGrow: 1, fontSize: "16px !important", lineHeight: "0rem !important", marginLeft: "10px" }} className='menu-header color-white-3 pointer' onClick={() => navigate('/dashboard')}>Mekaro Hub</Typography>
@@ -86,7 +119,9 @@ const Sidebar = ({open, handleDrawerClose, selectItem}) => {
               </ListItem>
             ))}
         </List>
-    </Drawer>
+      </Drawer>
+      {showShadow && open && (<ShadowBox onClick={handleDrawerClose} />)}
+    </>
   );
 }
 

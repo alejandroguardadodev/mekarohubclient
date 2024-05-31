@@ -70,6 +70,12 @@ export const muiTheme =  createTheme({
           letterSpacing: 0,
           lineHeight: 1.2,
           fontWeight: 300
+        },
+        body2: {
+          fontFamily: "'Prompt', sans-serif",
+          letterSpacing: 0,
+          lineHeight: 1.2,
+          fontWeight: 300
         }
     },
     components: {

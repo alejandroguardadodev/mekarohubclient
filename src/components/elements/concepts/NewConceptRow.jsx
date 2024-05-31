@@ -38,7 +38,7 @@ const NewConceptRow = ({closeNewConceptRow, openNewConentModal}) => {
     <TableRow sx={{ cursor: 'pointer' }}>
         <TableCell component="th" scope="row" colSpan={2} className='color-white-2'>
             <form onSubmit={onSubmit}>
-                <SimpleInput id="title" fullWidth type="text" label="Concept's Title" autoFocus register={register} errors={errors} inputType="standard" inputSize="small" hideLabel={true} className="no-border c-white-2"  />
+                <SimpleInput id="title" fullWidth type="text" label="Title" autoFocus register={register} errors={errors} inputType="standard" inputSize="small" hideLabel={true} className="no-border c-white-2"  />
             </form>
         </TableCell>
         <TableCell className='highlight'>@{username}</TableCell>

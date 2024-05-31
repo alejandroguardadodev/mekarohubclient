@@ -22,6 +22,10 @@ const MainContainer = styled(Box)(({ theme }) => ({
   maxHeight: '100vh',
   width: '100%',
   display: "flex",
+  [theme.breakpoints.down("sm")]: {
+    paddingTop: '60px',
+    boxSizing: 'border-box',
+  }
 }))
 
 const InnerContainer = styled(Box)(({ theme }) => ({
@@ -34,7 +38,7 @@ const InnerContainer = styled(Box)(({ theme }) => ({
     padding: "50px 20px"
   },
   [theme.breakpoints.down("sm")]: {
-    padding: "0px"
+    padding: "0px 5%"
   },
 }))
 
@@ -43,7 +47,7 @@ const DashLayout = () => {
   const location = useLocation();
   const { width: innerContainerWidth, height, ref: innerContainerRef } = useResizeDetector();
 
-  const [open, setOpen] = useState(false); // Open Main Menu
+  const [open, setOpen] = useState(true); // Open Main Menu
   const [currentItem, setCurrentItem] = useState({})
 
   const { loadAuth } = useAuth()

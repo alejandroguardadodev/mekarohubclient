@@ -43,8 +43,8 @@ const MkTable = ({width, theme, register, renderRow, renderNewRow, draggable=fal
           <TableRow>
             {columns.map((column, index) => 
               (index <= 0)?
-                <TableCell component="th" scope="row" colSpan={ draggable? 2 : 1 }>{column}</TableCell> :
-                <TableCell>{column}</TableCell>
+                <TableCell key={index} component="th" scope="row" colSpan={ draggable? 2 : 1 }>{column}</TableCell> :
+                <TableCell key={index}>{column}</TableCell>
             )}
           </TableRow>
         </TableHead>

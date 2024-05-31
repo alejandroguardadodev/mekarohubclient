@@ -24,6 +24,8 @@ import Concept from "./pages/Concept";
 
 import MyProfile from "./pages/MyProfile";
 
+import ErrNotFound from "./pages/ErrNotFound";
+
 import 'react-toastify/dist/ReactToastify.css';
 import './style/toast.css'
 
@@ -36,6 +38,8 @@ function App() {
       <Provider store={store}>
         <ThemeProvider theme={muiTheme}>
           <Routes>
+            <Route path="*" element={<ErrNotFound />} />
+
             <Route path="/" element={<AuthLayout />}>
               <Route index element={<Login />} />
               <Route path="signup" element={<SignUp />} />
@@ -48,7 +52,7 @@ function App() {
               <Route index element={<Dashboard />} />
             </Route>
 
-            <Route path="/concept" element={<DashLayout />}>
+            <Route path="/list" element={<DashLayout />}>
               <Route index element={<Concept />} />
             </Route>
 

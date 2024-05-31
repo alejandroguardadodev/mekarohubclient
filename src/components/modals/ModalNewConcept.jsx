@@ -28,7 +28,7 @@ const ModalNewConcept = ({open, handleClose, modalTitleValue}) => {
     >
       <MainBox open={open}>
         <Typography id="transition-modal-title" variant="h3" className="color-main capitalize" sx={{ fontWeight: 500, fontSize: 20}}>
-          Create new concept
+          Register Item
         </Typography>
         <Box id="transition-modal-description" sx={{ mt: 2, width: '100%' }}>
           <NewConceptForm modalTitleValue={modalTitleValue} closeModal={handleClose} />

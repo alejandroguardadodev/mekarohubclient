@@ -1,19 +1,22 @@
 import useConcepts from '../../../hooks/useConcepts'
 import useTable from '../../../hooks/useTable'
-
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery'
 import MkTable from '../../UI/table/MkTable'
 import ConceptRow from './ConceptRow'
 import NewConceptRow from './NewConceptRow'
 
-const columnsBase = ["Concept", "Owner", "Created At"]
+const columnsBase = ["Title", "Owner", "Created At"]
 
 const ConceptsTable = ({width, concepts, showNewConceptRow, closeNewConceptRow, openNewConentModal}) => {
 
   const { reorderConcept } = useConcepts()
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
   const { rowRegister, tableRegister} = useTable({
     data: concepts,
-    columns: columnsBase,
+    columns: isMobile? columnsBase.slice(0, 1) : columnsBase,
     onUpdate: (data) => {
       const concepts = data.map((concept, index) => ({
         id: concept._id,

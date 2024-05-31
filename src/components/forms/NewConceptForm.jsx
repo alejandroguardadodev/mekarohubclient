@@ -39,7 +39,7 @@ const NewConceptForm = ({closeModal, modalTitleValue}) => {
             <Input id="description" type="text" label="Description" register={register} errors={errors} multiline={true} rows={4} />
         </Box>
         <Box mt={3} className="flex-row-end">
-            <Button type="submit" variant="contained" size="large" sx={{ padding: "10px 40px", fontWeight: 600, fontSize: 15 }}>Create Content</Button>
+            <Button type="submit" variant="contained" size="large" sx={{ padding: "10px 40px", fontWeight: 600, fontSize: 15 }}>Submit</Button>
         </Box>
     </form>
   )

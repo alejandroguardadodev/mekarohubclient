@@ -1,5 +1,6 @@
 import {useNavigate} from 'react-router-dom'
-
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery'
 import useRightBar from '../../../hooks/useRightBar';
 import useRow from "../../../hooks/useRow";
 import { formatDate } from '../../../helper'
@@ -18,6 +19,9 @@ const ConceptRow = ({index, id, item, register}) => {
     const { showRightBar } = useRightBar()
 
     const navigate = useNavigate()
+
+    const theme = useTheme();
+    const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
     const subMenuItems = [
         {
@@ -44,10 +48,13 @@ const ConceptRow = ({index, id, item, register}) => {
         <TableCell onClick={handleClick} component="th" scope="row" className="color-white-2" sx={{width: "50%"}}>
           {title}
         </TableCell>
-        <TableCell align="left" className={`${isCreator && 'highlight'} sub-menu`}>
+        {!isMobile && (<>
+          <TableCell align="left" className={`${isCreator && 'highlight'} sub-menu`}>
             <SubMenu id={`sub-menu-${title}`} icon={<span>@{username}</span>} items={subMenuItems}/>
-        </TableCell>
-        <TableCell align="left" className="color-white-2">{formatDate(createdAt)}</TableCell>
+          </TableCell>
+          <TableCell align="left" className="color-white-2">{formatDate(createdAt)}</TableCell>
+        </>)}
+        
     </MKTableRow>
   )
 }

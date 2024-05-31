@@ -51,11 +51,6 @@ const Navbar = ({open, handleDrawerOpen}) => {
       click: () => navigate('/my-profile')
     },
     {
-      id: 1,
-      title: 'Notifies',
-      click: () => {}
-    },
-    {
       special: 'Divider',
     },
     {
