@@ -47,7 +47,7 @@ const DashLayout = () => {
   const location = useLocation();
   const { width: innerContainerWidth, height, ref: innerContainerRef } = useResizeDetector();
 
-  const [open, setOpen] = useState(true); // Open Main Menu
+  const [open, setOpen] = useState(false); // Open Main Menu
   const [currentItem, setCurrentItem] = useState({})
 
   const { loadAuth } = useAuth()
