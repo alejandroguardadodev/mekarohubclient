@@ -20,7 +20,7 @@ const CustomForm = styled('form')(() => ({
 const SignUpForm = () => {
   const navigate = useNavigate()
 
-  const { formData, errors, register, setErrorsByErr, onSubmit, showSuccessMessage } = useClientForm(SignUpSchemas, { 
+  const { formData, errors, register, setErrorsByErr, onSubmit, showSuccessMessage, resetValues } = useClientForm(SignUpSchemas, { 
     firstName: "",
     lastName: "",
     username: "",
@@ -33,14 +33,18 @@ const SignUpForm = () => {
     try {
       const { data } = await axiosClient.post('/users/signup', _data)
 
+      resetValues()
+
       Swal.fire({
-        title: "Good job!",
-        text: "You clicked the button!",
-        icon: "success"
+        title: "Welcome Aboard!",
+        text: "We have sent you a link to verify your account to your email address.",
+        icon: "success",
+        confirmButtonText: "OK",
+      }).then(() => {
+        navigate('/')
       });
 
       showSuccessMessage(data.msg)
-      navigate('/')
     } catch (err) {
       setErrorsByErr(err)
     }
